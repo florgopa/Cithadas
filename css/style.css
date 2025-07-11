@@ -1,7 +1,16 @@
 :root {
-    --color-primario: #6C91BF; /* Azul Serenidad */
-    --color-secundario: #F4C2C2; /* Rosa Pálido */
-    --color-neutral: #F8F8F2; /* Blanco Hueso */
-    --color-texto: #2E2E2E; /* Gris Ceniza */
-    --color-destacado: #88D8B0; /* Verde Menta */
+    --primary-blue: #3C406B;
+    --secondary-pink: #F4C2C2;
+    --light-gray: #f8f9fa;
+    --dark-gray: #495057;
+    --text-color-light: #6c757d;
+}
+
+body {
+    font-family: 'Lato', sans-serif; /* <-- AQUÍ ESTÁ EL CAMBIO */
+    line-height: 1;
+    margin: 0;
+    padding: 0;
+    color: var(--dark-gray);
+    background-color: #ffffff;
 }

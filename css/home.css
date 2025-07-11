@@ -1,0 +1,387 @@
+.py-5 {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+.bg-light {
+    background-color: var(--light-gray);
+}
+
+.text-center-heading {
+    text-align: center;
+    font-size: 2rem;
+    color: var(--primary-blue);
+    margin-bottom: 2.5rem;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.text-center-heading::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 4px;
+    background-color: var(--secondary-pink);
+    border-radius: 2px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    text-align: center;
+    border: 1px solid transparent;
+}
+
+.btn-secondary {
+    background-color: var(--secondary-pink);
+    color: var(--primary-blue);
+    border-color: var(--secondary-pink);
+}
+
+.btn-secondary:hover {
+    background-color: var(--primary-blue);
+    color: var(--secondary-pink);
+    border-color: var(--primary-blue);
+}
+
+.btn-cta {
+    background-color: var(--primary-blue);
+    color: white;
+    border-color: var(--primary-blue);
+    font-size: 1.1em;
+    padding: 15px 30px;
+}
+
+.btn-cta:hover {
+    background-color: var(--secondary-pink);
+    color: var(--primary-blue);
+    border-color: var(--secondary-pink);
+}
+
+/* Home Container*/
+.home-container {
+
+}
+
+/* Hero Section*/
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 600px; /* Ajusta la altura de tu hero según necesites */
+    background-image: url('../img/cithadasbg.jpg'); /* Cita: image_988e3c.jpg | Reemplaza con la ruta real de tu imagen de hero */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Overlay oscuro suave */
+    z-index: 1; /* Detrás del contenido del hero */
+}
+
+.hero-content {
+    position: relative; /* Para que quede por encima del overlay */
+    z-index: 2; /* Por encima del overlay */
+    max-width: 800px;
+    padding: 20px;
+}
+
+.hero-content h1 {
+    font-size: 3.8em;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.hero-content p {
+    font-size: 1.5em;
+    margin-bottom: 40px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+/* Search Bar en Hero */
+.hero-section .search-bar { /* Selector más específico para evitar conflictos con el search-bar del header */
+    display: flex;
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 30px;
+    padding: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.hero-section .search-input {
+    flex-grow: 1;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.1em;
+    outline: none;
+    background-color: transparent;
+    color: #333;
+}
+
+.hero-section .search-input::placeholder {
+    color: #999;
+}
+
+.hero-section .search-button {
+    background-color: var(--primary-blue);
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+}
+
+.hero-section .search-button:hover {
+    background-color: #2a2e5a;
+}
+
+/* ---------------------------------------------------- */
+/* How It Works Section */
+/* ---------------------------------------------------- */
+.how-it-works-section {
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.step-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.step-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.step-icon {
+    width: 60px;
+    height: 60px;
+    background-color: var(--primary-blue);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    font-weight: bold;
+    margin: 0 auto 20px auto;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+.step-card h4 {
+    font-size: 1.5em;
+    color: var(--primary-blue);
+    margin-bottom: 10px;
+}
+
+.step-card p {
+    color: var(--text-color-light);
+    font-size: 0.95em;
+}
+
+/* Featured Section */
+
+.featured-section {
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.category-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.category-icon {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+    border-radius: 50%;
+    background-color: var(--light-gray);
+    padding: 10px;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+}
+
+.category-card h3 {
+    font-size: 1.6em;
+    color: var(--primary-blue);
+    margin-bottom: 10px;
+}
+
+.category-card p {
+    color: var(--text-color-light);
+    font-size: 0.95em;
+    flex-grow: 1;
+    margin-bottom: 20px;
+}
+
+.category-card .btn {
+    margin-top: auto;
+}
+
+/* CTA*/
+.cta-business-section {
+    background-color: #bc98ad;
+    color: var(--primary-blue);
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.cta-business-section h2 {
+    color: var(--primary-blue);
+    font-size: 2.2em;
+    margin-bottom: 20px;
+}
+.cta-business-section h2::after {
+    background-color: var(--secondary-pink);
+}
+
+.cta-business-section p {
+    font-size: 1.2em;
+    margin-bottom: 40px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ---------------------------------------------------- */
+/* Responsive Adjustments for Home Page */
+/* ---------------------------------------------------- */
+@media (max-width: 1200px) {
+    .container {
+        padding: 0 15px;
+    }
+}
+
+@media (max-width: 992px) {
+    .hero-section {
+        height: 550px;
+    }
+    .hero-content h1 {
+        font-size: 3em;
+    }
+    .hero-content p {
+        font-size: 1.3em;
+    }
+    .text-center-heading {
+        font-size: 2em;
+        margin-bottom: 2rem;
+    }
+    .how-it-works-section,
+    .featured-section,
+    .cta-business-section {
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        height: 500px;
+    }
+    .hero-content h1 {
+        font-size: 2.5em;
+    }
+    .hero-content p {
+        font-size: 1.1em;
+    }
+    .hero-section .search-bar {
+        flex-direction: column;
+        padding: 10px;
+    }
+    .hero-section .search-input {
+        margin-bottom: 10px;
+    }
+    .hero-section .search-button {
+        width: 100%;
+        margin-left: 0;
+    }
+    .steps-grid,
+    .category-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .step-card, .category-card {
+        padding: 20px;
+    }
+    .step-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.8em;
+    }
+    .category-icon {
+        width: 60px;
+        height: 60px;
+    }
+    .cta-business-section h2 {
+        font-size: 1.8em;
+    }
+    .cta-business-section p {
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 2em;
+    }
+    .hero-content p {
+        font-size: 1em;
+    }
+    .text-center-heading {
+        font-size: 1.8em;
+    }
+}
