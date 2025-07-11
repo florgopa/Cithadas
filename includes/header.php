@@ -52,7 +52,6 @@ $page_title = $page_title ?? 'Cithadas - Beauty & Personal Care Appointments';
                     <a href="index.php?page=register">Registrarse</a>
                     <a href="index.php?page=login">Iniciar Sesión</a>
                 <?php endif; ?>
-                <a href="index.php?page=contact">Contacto</a>
             </div>
         </nav>
     </header>
