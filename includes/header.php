@@ -49,7 +49,6 @@ $page_title = $page_title ?? 'Cithadas - Beauty & Personal Care Appointments';
                     <?php endif; ?>
                     <a href="backend/auth/logout.php">Cerrar Sesión (<?php echo htmlspecialchars($_SESSION['user_name'] ?? ''); ?>)</a>
                 <?php else: ?>
-                    <a href="index.php?page=register_business" class="btn-register-business">Registra tu Negocio</a>
                     <a href="index.php?page=register">Registrarse</a>
                     <a href="index.php?page=login">Iniciar Sesión</a>
                 <?php endif; ?>

@@ -7,6 +7,12 @@
     background-color: var(--light-gray);
 }
 
+.container {
+    max-width: 1200px; /* O el ancho que uses para tu contenido principal */
+    margin: 0 auto;
+    padding: 0 15px; /* Espaciado lateral */
+}
+
 .text-center-heading {
     text-align: center;
     font-size: 2rem;
@@ -37,6 +43,7 @@
     transition: all 0.3s ease;
     text-align: center;
     border: 1px solid transparent;
+    cursor: pointer;
 }
 
 .btn-secondary {
@@ -65,16 +72,16 @@
     border-color: var(--secondary-pink);
 }
 
-/* Home Container*/
+/* Home Container */
 .home-container {
-
+    /* Si tienes algún estilo para el contenedor principal de tu home, va aquí */
 }
 
-/* Hero Section*/
+/* Hero Section */
 .hero-section {
     position: relative;
     width: 100%;
-    height: 600px; /* Ajusta la altura de tu hero según necesites */
+    height: 700px;
     background-image: url('../img/cithadasbg.jpg'); /* Cita: image_988e3c.jpg | Reemplaza con la ruta real de tu imagen de hero */
     background-size: cover;
     background-position: center;
@@ -93,12 +100,12 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.4); /* Overlay oscuro suave */
-    z-index: 1; /* Detrás del contenido del hero */
+    z-index: 1;
 }
 
 .hero-content {
-    position: relative; /* Para que quede por encima del overlay */
-    z-index: 2; /* Por encima del overlay */
+    position: relative;
+    z-index: 2;
     max-width: 800px;
     padding: 20px;
 }
@@ -117,7 +124,7 @@
 }
 
 /* Search Bar en Hero */
-.hero-section .search-bar { /* Selector más específico para evitar conflictos con el search-bar del header */
+.hero-section .search-bar {
     display: flex;
     max-width: 600px;
     width: 100%;
@@ -158,9 +165,7 @@
     background-color: #2a2e5a;
 }
 
-/* ---------------------------------------------------- */
-/* How It Works Section */
-/* ---------------------------------------------------- */
+/* How It Works Section (si la utilizas) */
 .how-it-works-section {
     padding-top: 80px;
     padding-bottom: 80px;
@@ -213,69 +218,95 @@
     font-size: 0.95em;
 }
 
-/* Featured Section */
-
+/* Estilos para la SECCIÓN DE CATEGORÍAS POPULARES (featured-section) */
 .featured-section {
-    padding-top: 80px;
-    padding-bottom: 80px;
-}
-
-.category-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-    margin-top: 40px;
-}
-
-.category-card {
-    background-color: #ffffff;
-    border-radius: 10px;
-    padding: 30px;
+    padding: 80px 0;
+    background-color: var(--light-gray);
     text-align: center;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.featured-section .text-center-heading {
+    /* Mantiene el estilo general de los encabezados centrados, ya está definido arriba */
+}
+
+.featured-section .category-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    max-width: 1200px;
+    margin: 40px auto 0 auto;
+    padding: 0 20px;
+}
+
+.featured-section .category-card {
+    background-color: var(--white);
+    border-radius: 18px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    padding: 35px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
+    text-align: center;
+    text-decoration: none;
+    color: var(--dark-gray);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.category-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+.featured-section .category-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
 }
 
-.category-icon {
-    width: 80px;
-    height: 80px;
-    margin-bottom: 20px;
+.featured-section .category-card .category-icon {
+    width: 110px;
+    height: 110px;
     border-radius: 50%;
-    background-color: var(--light-gray);
+    border: 5px solid var(--secondary-pink);
+    background-color: var(--white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+    overflow: hidden;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.featured-section .category-card:hover .category-icon {
+    transform: scale(1.08);
+}
+
+.featured-section .category-card .category-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: scale-down;
     padding: 10px;
-    box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
 }
 
-.category-card h3 {
-    font-size: 1.6em;
+.featured-section .category-card h3 {
+    font-size: 2em;
     color: var(--primary-blue);
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
-.category-card p {
+.featured-section .category-card p {
+    font-size: 1.05em;
     color: var(--text-color-light);
-    font-size: 0.95em;
+    margin-bottom: 30px;
     flex-grow: 1;
-    margin-bottom: 20px;
 }
 
-.category-card .btn {
+.featured-section .category-card .btn-secondary {
     margin-top: auto;
+    padding: 12px 25px;
+    font-size: 1em;
+    min-width: 160px;
 }
 
-/* CTA*/
+/* CTA Section */
 .cta-business-section {
-    background-color: #bc98ad;
-    color: var(--primary-blue);
+    background-color: #bc98ad; /* Este color es un rosa/malva suave */
+    color: var(--primary-blue); /* El texto será azul primario */
     padding: 80px 20px;
     text-align: center;
 }
@@ -286,7 +317,7 @@
     margin-bottom: 20px;
 }
 .cta-business-section h2::after {
-    background-color: var(--secondary-pink);
+    background-color: var(--secondary-pink); /* Usa tu color de acento para la línea */
 }
 
 .cta-business-section p {
@@ -297,91 +328,92 @@
     margin-right: auto;
 }
 
-/* ---------------------------------------------------- */
-/* Responsive Adjustments for Home Page */
-/* ---------------------------------------------------- */
-@media (max-width: 1200px) {
-    .container {
-        padding: 0 15px;
-    }
+/* Sección de la Misión (NUEVO) */
+.mission-section {
+    padding: 60px 0;
+    background-color: var(--light-gray); /* Un color de fondo suave, usando tu variable */
+    border-radius: 15px; /* Bordes redondeados */
+    margin-top: 50px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
 
-@media (max-width: 992px) {
-    .hero-section {
-        height: 550px;
-    }
-    .hero-content h1 {
-        font-size: 3em;
-    }
-    .hero-content p {
-        font-size: 1.3em;
-    }
-    .text-center-heading {
-        font-size: 2em;
-        margin-bottom: 2rem;
-    }
-    .how-it-works-section,
-    .featured-section,
-    .cta-business-section {
-        padding-top: 60px;
-        padding-bottom: 60px;
-    }
+.mission-text {
+    max-width: 900px;
+    margin: 0 auto;
+    font-size: 1.1em;
+    line-height: 1.8;
+    color: var(--text-color-light); /* Texto más claro para la misión */
+    text-align: center;
 }
 
-@media (max-width: 768px) {
-    .hero-section {
-        height: 500px;
-    }
-    .hero-content h1 {
-        font-size: 2.5em;
-    }
-    .hero-content p {
-        font-size: 1.1em;
-    }
-    .hero-section .search-bar {
-        flex-direction: column;
-        padding: 10px;
-    }
-    .hero-section .search-input {
-        margin-bottom: 10px;
-    }
-    .hero-section .search-button {
-        width: 100%;
-        margin-left: 0;
-    }
-    .steps-grid,
-    .category-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-    .step-card, .category-card {
-        padding: 20px;
-    }
-    .step-icon {
-        width: 50px;
-        height: 50px;
-        font-size: 1.8em;
-    }
-    .category-icon {
-        width: 60px;
-        height: 60px;
-    }
-    .cta-business-section h2 {
-        font-size: 1.8em;
-    }
-    .cta-business-section p {
-        font-size: 1em;
-    }
+.mission-text p {
+    margin-bottom: 1.2em;
 }
 
-@media (max-width: 480px) {
-    .hero-content h1 {
-        font-size: 2em;
-    }
-    .hero-content p {
-        font-size: 1em;
-    }
-    .text-center-heading {
-        font-size: 1.8em;
-    }
+/* Sección del Formulario de Contacto (NUEVO) */
+.contact-form-section {
+    padding: 60px 0;
+    background-color: var(--white); /* Fondo blanco */
+    border-radius: 15px;
+    margin-top: 50px;
+    margin-bottom: 50px; /* Para separarlo del footer */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.07);
 }
+
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 30px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    background-color: #fcfcfc;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-color-dark);
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+    color: var(--text-color);
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group textarea:focus {
+    border-color: var(--primary-blue);
+    outline: none;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.btn-submit-contact {
+    display: block;
+    width: 100%;
+    padding: 15px 25px;
+    background-color: var(--secondary-pink);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s

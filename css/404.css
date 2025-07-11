@@ -1,0 +1,51 @@
+    .not-found-section {
+        padding: 100px 20px;
+        background-color: #f8f9fa;
+        min-height: calc(100vh - var(--header-height) - var(--footer-height)); /* Ajusta según la altura de tu header y footer */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .not-found-section .container {
+        max-width: 600px;
+        text-align: center;
+    }
+    .not-found-section h1 {
+        font-size: 8em;
+        color: var(--primary-blue);
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    }
+    .not-found-section h2 {
+        font-size: 2.5em;
+        color: var(--dark-gray);
+        margin-bottom: 20px;
+    }
+    .not-found-section p {
+        font-size: 1.1em;
+        color: var(--text-color-light);
+        margin-bottom: 30px;
+    }
+    .not-found-section .btn-primary {
+        background-color: var(--secondary-pink);
+        color: var(--primary-blue);
+        padding: 12px 25px;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .not-found-section .btn-primary:hover {
+        background-color: var(--primary-blue);
+        color: var(--secondary-pink);
+    }
+
+    /* Asume que tienes variables CSS definidas en otro lugar, por ejemplo en style.css */
+    /* :root {
+        --primary-blue: #3c406b;
+        --secondary-pink: #f799b6;
+        --dark-gray: #333;
+        --text-color-light: #666;
+        --header-height: 80px; // Ejemplo, ajusta a tu header real
+        --footer-height: 100px; // Ejemplo, ajusta a tu footer real
+    } */
