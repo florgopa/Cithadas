@@ -6,11 +6,21 @@
     --text-color-light: #6c757d;
 }
 
+/* --- Estilos para el background global del body --- */
 body {
-    font-family: 'Lato', sans-serif; /* <-- AQUÍ ESTÁ EL CAMBIO */
-    line-height: 1;
     margin: 0;
     padding: 0;
-    color: var(--dark-gray);
-    background-color: #ffffff;
+    font-family: 'Arial', sans-serif; /* Puedes ajustar esto a tu fuente principal */
+    line-height: 1.6;
+    color: var(--text-color);
+
+    /* La imagen de fondo */
+    background-image: url('../img/bg.jpg'); /* ASEGÚRATE QUE LA RUTA ES CORRECTA */
+    background-size: 450px; /* <--- AJUSTA ESTE VALOR: prueba con 100px, 150px, 200px, 300px hasta que te guste */
+    background-position: center center; /* O puedes quitar esto si quieres que empiece desde arriba a la izquierda */
+    background-repeat: repeat; /* <--- ESTO ES CLAVE: hará que la imagen se repita en patrón */
+    background-attachment: fixed; /* Mantiene la imagen fija mientras el contenido se desplaza */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }

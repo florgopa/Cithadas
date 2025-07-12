@@ -1,43 +1,170 @@
+:root {
+    --primary-color: #333; /* Color principal oscuro para texto y botones */
+    --secondary-color: #3C406B; /* Azul para enlaces y acentos */
+    --hover-color: #262944; /* Azul más oscuro para hover */
+    --text-light: #666;
+    --background-light: #f8f9fa;
+    --white: #FFFFFF;
+    --border-light: #ddd;
+    --shadow-subtle: rgba(0, 0, 0, 0.1);
+}
+
+/* Contenedor principal del dashboard */
+.dashboard-container {
+    max-width: 800px; /* Ancho máximo como sugeriste */
+    margin: 50px auto; /* Centrado con margen superior/inferior */
+    padding: 30px; /* Aumentado el padding */
+    border: 1px solid var(--border-light);
+    border-radius: 10px; /* Bordes ligeramente más redondeados */
+    box-shadow: 0 4px 15px var(--shadow-subtle); /* Sombra más pronunciada */
+    background-color: var(--white);
+    font-family: 'Inter', sans-serif; /* Fuente Inter para un look moderno */
+}
+
+.dashboard-heading {
+    text-align: center;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+    font-size: 2.5em; /* Tamaño de fuente más grande */
+    font-weight: 700;
+}
+
+.user-name-highlight {
+    color: var(--secondary-color); /* Resaltar el nombre con el color de acento */
+}
+
+.dashboard-intro {
+    font-size: 1.1em;
+    color: var(--text-light);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.user-role-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 0.85em;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-left: 8px;
+    background-color: var(--secondary-color); /* Color uniforme para el badge */
+}
+
+/* Colores específicos para roles si quieres diferenciarlos, si no, usa solo .user-role-badge */
+.role-admin { background-color: #dc3545; } /* Rojo */
+.role-negocio { background-color: #28a745; } /* Verde */
+.role-cliente { background-color: #3C406B; } /* Azul */
+
+
+.options-section {
+    margin-top: 40px;
+}
+
+.section-title {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    font-size: 1.8em; /* Tamaño de fuente para títulos de sección */
+    font-weight: 600;
+    text-align: center;
+    border-bottom: 1px solid var(--border-light); /* Línea sutil */
+    padding-bottom: 10px;
+}
+
+.dashboard-options-list {
+    list-style: none;
+    padding: 0;
+    display: grid; /* Usamos grid para un layout flexible */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* 2 columnas en desktop, 1 en móvil */
+    gap: 15px; /* Espacio entre las opciones */
+    margin-top: 20px;
+}
+
+.dashboard-options-list li {
+    margin-bottom: 0; /* Eliminamos el margen inferior de la lista para que el gap funcione */
+}
+
+.dashboard-option-link {
+    display: block;
+    padding: 15px 20px; /* Más padding para que parezca una tarjeta */
+    background-color: var(--background-light); /* Fondo claro para las opciones */
+    color: var(--primary-color); /* Texto oscuro */
+    text-decoration: none;
+    border-radius: 8px; /* Bordes redondeados */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 5px var(--shadow-subtle); /* Sombra sutil para efecto de tarjeta */
+    text-align: left; /* Alineación de texto a la izquierda */
+    font-weight: 500;
+    font-size: 1.1em;
+}
+
+.dashboard-option-link:hover {
+    background-color: var(--secondary-color); /* Azul al pasar el ratón */
+    color: var(--white); /* Texto blanco al pasar el ratón */
+    transform: translateY(-3px); /* Efecto de "levantar" */
+    box-shadow: 0 6px 12px var(--shadow-subtle);
+}
+
+.dashboard-option-link.disabled-link {
+    opacity: 0.7;
+    cursor: not-allowed;
+    pointer-events: none; /* Deshabilita clics */
+    background-color: #eee; /* Un gris más claro para deshabilitado */
+    color: #999;
+    box-shadow: none;
+    transform: none;
+}
+
+.dashboard-option-link.disabled-link:hover {
+    background-color: #eee; /* No cambia al pasar el ratón */
+    color: #999;
+}
+
+.dashboard-footer-text {
+    text-align: center;
+    margin-top: 40px;
+    color: var(--text-light);
+    font-size: 0.95em;
+}
+
+/* Media Queries para Responsividad */
+@media (max-width: 768px) {
     .dashboard-container {
-        max-width: 800px;
-        margin: 50px auto;
         padding: 20px;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        background-color: #fff;
+        margin: 30px auto;
     }
-    .dashboard-container h2 {
-        text-align: center;
-        margin-bottom: 20px;
-        color: #333;
+    .dashboard-heading {
+        font-size: 2em;
     }
-    .dashboard-container h3 {
-        margin-top: 30px;
-        margin-bottom: 15px;
-        color: #555;
+    .dashboard-intro {
+        font-size: 1em;
     }
-    .dashboard-container ul {
-        list-style: none;
-        padding: 0;
+    .section-title {
+        font-size: 1.6em;
     }
-    .dashboard-container ul li {
-        margin-bottom: 10px;
+    .dashboard-options-list {
+        grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
     }
-    .dashboard-container ul li a {
-        display: block;
-        padding: 10px 15px;
-        background-color: #007bff;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-        transition: background-color 0.3s ease;
+    .dashboard-option-link {
+        padding: 12px 15px;
+        font-size: 1em;
     }
-    .dashboard-container ul li a:hover {
-        background-color: #0056b3;
+}
+
+@media (max-width: 480px) {
+    .dashboard-container {
+        padding: 15px;
+        margin: 20px auto;
     }
-    .dashboard-container p {
-        text-align: center;
-        margin-top: 20px;
-        color: #666;
+    .dashboard-heading {
+        font-size: 1.8em;
     }
+    .dashboard-intro {
+        font-size: 0.95em;
+    }
+    .section-title {
+        font-size: 1.4em;
+    }
+}

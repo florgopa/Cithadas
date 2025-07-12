@@ -1,230 +1,332 @@
-.register-business-container {
-    max-width: 900px;
-    margin: 30px auto;
-    padding: 25px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+
+/* contenedor y encabezados */
+.manage-services-container {
+    padding: 40px 20px;
+    background-color: var(--white);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    margin-top: 30px;
+    margin-bottom: 30px;
+    max-width: 900px; /* Ancho máximo para la tabla y formulario */
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #F6F6F6;
 }
 
 .text-center-heading {
+    color: var(--primary-blue);
+    margin-bottom: 20px;
     text-align: center;
-    color: #333;
-    margin-bottom: 30px;
-    font-size: 2em;
 }
 
-.form-section-heading, .list-section-heading {
-    color: #0056b3;
+.text-center {
+    color: var(--text-color-light);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.form-section-heading,
+.list-section-heading {
+    color: var(--primary-blue);
     margin-top: 40px;
     margin-bottom: 20px;
-    border-bottom: 2px solid #eee;
+    border-bottom: 2px solid var(--primary-blue);
     padding-bottom: 10px;
+    font-size: 1.8em;
 }
 
-.form-group {
+/* Estilos para formularios (aplicados a .business-form y .service-form) */
+.business-form .form-group,
+.service-form .form-group {
     margin-bottom: 20px;
 }
 
-.form-group label {
+.business-form label,
+.service-form label {
     display: block;
     margin-bottom: 8px;
     font-weight: bold;
-    color: #555;
+    color: var(--text-color);
 }
 
-.form-group input[type="text"],
-.form-group input[type="number"],
-.form-group textarea,
-.form-group select {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+.business-form input[type="text"],
+.business-form input[type="email"],
+.business-form input[type="url"],
+.business-form input[type="time"],
+.business-form input[type="number"],
+.business-form textarea,
+.business-form select,
+.service-form input[type="text"],
+.service-form input[type="email"],
+.service-form input[type="url"],
+.service-form input[type="time"],
+.service-form input[type="number"],
+.service-form textarea,
+.service-form select {
+    width: calc(100% - 20px); /* Ajustar padding */
+    padding: 10px;
+    border: 1px solid #333;
+    border-radius: 8px;
     font-size: 1em;
-    box-sizing: border-box; /* Para que padding no aumente el ancho total */
+    box-sizing: border-box; /* Incluir padding en el ancho */
+    transition: border-color 0.3s ease;
+
 }
 
-.form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus {
-    border-color: #007bff;
+.business-form input[type="text"]:focus,
+.business-form input[type="email"]:focus,
+.business-form input[type="url"]:focus,
+.business-form input[type="time"]:focus,
+.business-form input[type="number"]:focus,
+.business-form textarea:focus,
+.business-form select:focus,
+.service-form input[type="text"]:focus,
+.service-form input[type="email"]:focus,
+.service-form input[type="url"]:focus,
+.service-form input[type="time"]:focus,
+.service-form input[type="number"]:focus,
+.service-form textarea:focus,
+.service-form select:focus {
+    border-color: var(--primary-blue);
     outline: none;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
-.form-group textarea {
-    resize: vertical; /* Permite redimensionar verticalmente */
+.business-form textarea,
+.service-form textarea {
+    resize: vertical; /* Permitir redimensionar verticalmente */
+}
+
+.form-hint {
+    font-size: 0.85em;
+    color: var(--text-color-light);
+    margin-top: 5px;
+    display: block;
 }
 
 .required-field {
-    color: #dc3545; /* Rojo para campos obligatorios */
-    margin-left: 5px;
+    color: var(--secondary-pink);
+    font-weight: normal;
 }
 
+/* Estilos para el botón de submit */
 .btn-submit {
     display: block;
     width: 100%;
     padding: 12px 20px;
-    background-color: #28a745; /* Verde para añadir/actualizar */
+    background-color: var(--primary-blue);
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     font-size: 1.1em;
+    font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.3s ease;
     margin-top: 20px;
 }
 
 .btn-submit:hover {
-    background-color: #218838;
+    background-color: var(--dark-blue);
 }
 
 .btn-cancel {
     display: block;
     width: 100%;
-    padding: 12px 20px;
-    background-color: #6c757d; /* Gris para cancelar */
-    color: white;
+    padding: 10px 20px;
+    background-color: #ccc;
+    color: #333;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     font-size: 1.1em;
+    font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.3s ease;
     margin-top: 10px;
     text-align: center;
     text-decoration: none;
 }
 
 .btn-cancel:hover {
-    background-color: #5a6268;
+    background-color: #bbb;
 }
 
-.section-divider {
-    border: 0;
-    height: 1px;
-    background-color: #eee;
-    margin: 40px 0;
-}
-
-.no-services-message {
-    text-align: center;
-    color: #666;
-    font-style: italic;
-    padding: 20px;
-    border: 1px dashed #ddd;
-    border-radius: 5px;
-    margin-top: 20px;
-}
-
-/* Tabla de servicios */
+/* Estilos de la tabla (aplicados a .common-table) */
 .table-container {
-    overflow-x: auto; /* Para tablas que se desbordan en pantallas pequeñas */
-    margin-top: 20px;
+    overflow-x: auto; /* Permite scroll horizontal en pantallas pequeñas */
 }
 
-.service-list-table {
+.common-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    background-color: var(--white);
+    border-radius: 10px;
+    overflow: hidden; /* Para que los bordes redondeados se apliquen a la tabla */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
-.service-list-table thead tr {
-    background-color: #f8f9fa;
-    border-bottom: 2px solid #dee2e6;
-}
-
-.service-list-table th,
-.service-list-table td {
-    padding: 12px 15px;
+.common-table th,
+.common-table td {
+    padding: 15px;
     text-align: left;
-    border-bottom: 1px solid #dee2e6;
+    border-bottom: 1px solid #eee;
 }
 
-.service-list-table th {
-    color: #333;
-    font-weight: 600;
+.common-table th {
+    background-color: var(--primary-blue);
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.9em;
 }
 
-.service-list-table tbody tr:hover {
+.common-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.common-table tbody tr:hover {
     background-color: #f1f1f1;
 }
 
-.status-badge {
-    padding: 5px 10px;
-    border-radius: 15px;
+.common-table td {
+    color: var(--text-color);
+}
+
+.common-table td:last-child {
+    text-align: center; /* Centrar las acciones */
+}
+
+/* Estilos para los botones de acción en tablas */
+.btn-approve, .btn-reject, .btn-inactivate, .btn-activate, .btn-edit, .btn-delete {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
     font-size: 0.85em;
-    font-weight: bold;
     color: white;
-    text-transform: capitalize;
-}
-
-.status-activo {
-    background-color: #28a745; /* Verde */
-}
-
-.status-inactivo {
-    background-color: #6c757d; /* Gris */
-}
-
-.action-button {
-    display: inline-block;
-    padding: 6px 12px;
-    margin-right: 5px;
-    border-radius: 4px;
-    text-decoration: none;
-    font-size: 0.9em;
-    transition: background-color 0.2s ease;
-}
-
-.edit-button {
-    background-color: #007bff;
-    color: white;
-}
-
-.edit-button:hover {
-    background-color: #0056b3;
-}
-
-.delete-button {
-    background-color: #dc3545;
-    color: white;
-}
-
-.delete-button:hover {
-    background-color: #c82333;
-}
-
-/* Estilos para los mensajes de alerta */
-.alert {
-    padding: 15px;
-    margin-bottom: 20px;
-    border: 1px solid transparent;
-    border-radius: 4px;
+    margin-right: 5px; /* Espacio entre botones */
+    margin-bottom: 5px; /* Si se apilan */
+    transition: background-color 0.3s ease, color 0.3s ease;
+    text-decoration: none; /* Para los 'a' que actúan como botones */
+    display: inline-block; /* Para que los 'a' se comporten como botones */
     text-align: center;
 }
 
+.btn-approve {
+    background-color: #007bff;
+}
+.btn-approve:hover {
+    background-color: #0056b3;
+}
+.btn-reject {
+    background-color: #ffc107;
+    color: #333;
+}
+.btn-reject:hover {
+    background-color: #e0a800;
+}
+.btn-inactivate {
+    background-color: #dc3545;
+}
+.btn-inactivate:hover {
+    background-color: #c82333;
+}
+.btn-activate {
+    background-color: #28a745;
+}
+.btn-activate:hover {
+    background-color: #218838;
+}
+.btn-edit {
+    background-color: #6c757d;
+}
+.btn-edit:hover {
+    background-color: #5a6268;
+}
+.btn-delete {
+    background-color: #dc3545; /* Rojo para eliminar, similar a inactivar */
+}
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
+/* Estilos para alertas */
+.alert {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 0.95em;
+}
 .success-message {
-    color: #3c763d;
-    background-color: #dff0d8;
-    border-color: #d6e9c6;
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
 }
-
 .error-message {
-    color: #a94442;
-    background-color: #f2dede;
-    border-color: #ebccd1;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
 }
-
-.info-message {
+.info-message, .warning-message { /* Añadimos warning-message aquí */
     color: #31708f;
     background-color: #d9edf7;
     border-color: #bce8f1;
+    border: 1px solid #bce8f1;
 }
 
-.form-hint {
-    font-size: 0.85em;
-    color: #888;
-    margin-top: 5px;
-    display: block;
+/* Estilos para el badge de estado */
+.status-badge {
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.8em;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: white;
+}
+
+.status-activo {
+    background-color: #4CAF50; /* Verde */
+}
+
+.status-inactivo {
+    background-color: #f44336; /* Rojo */
+}
+
+/* Media Queries para Responsividad */
+@media (max-width: 768px) {
+    .manage-services-container {
+        padding: 20px 10px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .form-section-heading,
+    .list-section-heading {
+        font-size: 1.5em;
+    }
+    .business-form input[type="text"],
+    .business-form input[type="email"],
+    .business-form input[type="url"],
+    .business-form input[type="time"],
+    .business-form input[type="number"],
+    .business-form textarea,
+    .business-form select,
+    .service-form input[type="text"],
+    .service-form input[type="email"],
+    .service-form input[type="url"],
+    .service-form input[type="time"],
+    .service-form input[type="number"],
+    .service-form textarea,
+    .service-form select {
+        width: 100%;
+    }
+    .common-table th,
+    .common-table td {
+        padding: 10px;
+        font-size: 0.9em;
+    }
+    /* Ocultar algunas columnas en móvil para mejor visualización */
+    .common-table th:nth-child(2), /* Categoría */
+    .common-table td:nth-child(2) {
+        display: none;
+    }
 }

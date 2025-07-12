@@ -13,6 +13,17 @@ require_once 'includes/db.php';
 $businesses = [];
 $error_message = '';
 
+// --- Manejo de mensajes de estado de la sesión (ej. después de aprobar/rechazar) ---
+$status_message = '';
+$status_type = '';
+if (isset($_SESSION['status_message'])) {
+    $status_message = $_SESSION['status_message'];
+    $status_type = $_SESSION['status_type'];
+    unset($_SESSION['status_message']);
+    unset($_SESSION['status_type']);
+}
+// --- Fin manejo de mensajes ---
+
 // Obtener todos los negocios de la base de datos
 // También obtenemos el nombre del usuario_id para saber quién es el dueño
 $sql = "SELECT n.id, n.nombre_negocio, n.direccion, n.telefono, n.email_negocio, n.estado, u.nombre AS nombre_usuario, u.email AS email_usuario
@@ -39,19 +50,17 @@ if ($stmt = $conn->prepare($sql)) {
 $conn->close(); // Cerrar la conexión a la base de datos
 ?>
 
-<div class="manage-business-container">
-    <h2>Gestionar Negocios</h2>
-    <p>Desde aquí podrás ver, aprobar/rechazar, y editar la información de los negocios registrados.</p>
+<div class="manage-business-container container">
+    <h2 class="text-center-heading">Gestionar Negocios</h2>
+    <p class="text-center">Desde aquí podrás ver, aprobar/rechazar, y editar la información de los negocios registrados.</p>
 
-    <?php
-    // Mostrar mensajes de estado (éxito/error)
-    if (isset($_SESSION['status_message'])) {
-        $message_class = ($_SESSION['status_type'] === 'success') ? 'success-message' : 'error-message';
-        echo '<div class="alert ' . $message_class . '">' . htmlspecialchars($_SESSION['status_message']) . '</div>';
-        unset($_SESSION['status_message']); // Limpiar el mensaje después de mostrarlo
-        unset($_SESSION['status_type']);     // Limpiar el tipo de mensaje
-    }
+    <?php if ($status_message):
+        $alert_class = ($status_type === 'success') ? 'success-message' : (($status_type === 'error') ? 'error-message' : 'info-message');
     ?>
+        <div class="alert <?php echo $alert_class; ?>">
+            <?php echo htmlspecialchars($status_message); ?>
+        </div>
+    <?php endif; ?>
 
     <?php if (!empty($error_message)): ?>
         <div class="alert error-message"><?php echo htmlspecialchars($error_message); ?></div>
@@ -81,7 +90,11 @@ $conn->close(); // Cerrar la conexión a la base de datos
                             <td><?php echo htmlspecialchars($business['email_negocio']); ?></td>
                             <td><?php echo htmlspecialchars($business['direccion']); ?></td>
                             <td><?php echo htmlspecialchars($business['telefono']); ?></td>
-                            <td><?php echo htmlspecialchars($business['estado']); ?></td>
+                            <td>
+                                <span class="status-badge status-<?php echo htmlspecialchars($business['estado']); ?>">
+                                    <?php echo htmlspecialchars(ucfirst($business['estado'])); ?>
+                                </span>
+                            </td>
                             <td>
                                 <form action="backend/admin/toggle_business_status.php" method="POST" style="display:inline;">
                                     <input type="hidden" name="business_id" value="<?php echo htmlspecialchars($business['id']); ?>">

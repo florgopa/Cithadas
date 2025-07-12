@@ -1,178 +1,148 @@
+/* Estilos para el header */
+.main-header {
+    color: var(--text-color);
+    padding: 15px 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    width: 100%;
+}
 
-.container {
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    flex-wrap: wrap;
+    background-color: white;
+}
+
+/* Contenedor interno para centrar contenido si se desea */
+.main-nav-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
 }
 
-/* Estilos para el Header General (SÓLIDO) */
-header {
-    background-color: #f8f9fa; /* Volví el fondo del header a blanco para mejor contraste */
-    padding: 15px 0; /* Espacio arriba y abajo */
-    border-bottom: 1px solid #e9ecef; /* Línea sutil abajo */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Sombra suave */
-    width: 100%;
-    position: relative; /* En el flujo normal, no flotante */
-    z-index: 999; /* Por encima de otros elementos */
-}
-
-/* Contenedor principal de la navegación dentro del header */
-.main-nav { /* Usamos la clase 'main-nav' de tu HTML */
-    display: flex;
-    align-items: center; /* Centra verticalmente los elementos */
-    max-width: 1200px; /* Ancho máximo para el contenido */
-    margin: 0 auto; /* Centra el contenedor */
-    padding: 0 20px; /* Espacio a los lados */
-    flex-wrap: nowrap; /* Evita que los elementos se envuelvan en pantallas grandes */
-    gap: 20px; /* Espacio entre los elementos principales */
-    justify-content: space-between; /* Distribución de elementos */
-}
-
-/* Estilo del Logo */
+/* Logo */
 .logo {
-    text-align: center; /* Centra el logo si tiene más espacio */
-    order: 2; /* Segundo elemento visualmente */
-    min-width: 100px; /* Ancho mínimo para el logo */
+    text-align: center;
 }
 
-.logo a {
-    text-decoration: none;
-    /* Las propiedades de texto no son necesarias para el logo SVG */
+.logo .site-logo {
+    height: 100px;
+    vertical-align: middle;
 }
 
-/* Reglas para el LOGO SVG */
-.logo a img.site-logo { /* Asegúrate de que tu <img> en header.php tenga class="site-logo" */
-    height: 100px; /* Altura fija para el logo */
-    width: auto; /* Ancho automático para mantener la proporción */
-    display: block; /* Para permitir margin auto y centrar */
-    margin: 0 auto; /* Centra la imagen del logo */
+/* Barra de búsqueda */
+.header-search {
+    flex: 1;
+    max-width: 400px;
+    margin-right: 20px;
 }
 
-/* Estilos para la barra de búsqueda en el header (Izquierda) */
-.search-bar { /* Usamos la clase 'search-bar' de tu HTML */
+.header-search form {
     display: flex;
-    max-width: 350px; /* Ancho máximo */
-    width: 100%; /* Ocupa todo el ancho disponible */
-    background-color: #f2f2f2; /* Fondo gris claro */
-    border-radius: 25px;
-    padding: 5px;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
-    order: 1; /* Primer elemento visualmente */
-    flex-shrink: 0; /* Evita que se encoja */
+    align-items: center;
+    background-color: #f3f3f3;
+    border-radius: 30px;
+    padding: 5px 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.search-bar form { /* Contenedor del input y botón */
-    display: flex;
-    width: 100%;
-    align-items: center; /* Centra verticalmente los elementos del formulario */
-}
-
-.search-bar input[type="text"] {
-    flex-grow: 1;
-    padding: 10px 15px; /* Ajustado el padding para el input */
+.header-search input[type="text"] {
+    flex: 1;
     border: none;
-    border-radius: 20px;
-    font-size: 1.05em; /* Ligeramente más grande */
+    padding: 10px 15px;
+    border-radius: 30px;
+    background: transparent;
+    color: var(--text-color);
+    font-size: 1em;
+}
+
+.header-search input[type="text"]::placeholder {
+    color: #aaa;
+}
+
+.header-search input[type="text"]:focus {
     outline: none;
-    background-color: transparent; /* Fondo transparente para el input */
-    color: #333;
 }
 
-.search-bar input[type="text"]::placeholder {
-    color: #888;
-    font-size: 1.05em; /* Placeholder también más grande */
-}
-
-.search-bar button {
-    background-color: var(--primary-blue);
+.btn-search-header {
+    background-color: var(--secondary-pink);
     color: white;
-    padding: 10px 20px; /* Ajustado el padding del botón */
     border: none;
+    padding: 8px 15px;
     border-radius: 20px;
-    margin-left: 5px;
+    margin-left: 10px;
     cursor: pointer;
-    font-size: 1em; /* Tamaño de fuente para el botón */
+    font-weight: bold;
     transition: background-color 0.3s ease;
 }
 
-.search-bar button:hover {
-    background-color: #2a2e5a;
+.btn-search-header:hover {
+    background-color: #e05e5e;
 }
 
-/* Estilos para los enlaces de navegación (Derecha) */
+/* Enlaces de navegación */
 .nav-links {
     display: flex;
-    gap: 20px; /* Espacio entre enlaces */
     align-items: center;
-    order: 3; /* Tercer elemento visualmente */
-    flex-shrink: 0; /* Evita que se encoja */
+    margin-left: 20px;
 }
 
-.main-nav .nav-links a { /* Selector específico para los enlaces de navegación */
+.nav-links a {
+    color: var(--text-color);
     text-decoration: none;
-    color: var(--dark-gray); /* Gris oscuro para el texto de enlaces */
     font-weight: 500;
-    font-size: 1.1em; /* Aumentado a 1.1em para enlaces normales */
+    font-size: 1.1em;
+    margin-left: 25px;
     transition: color 0.3s ease;
-    white-space: nowrap; /* Evita que los enlaces se rompan */
 }
 
 .nav-links a:hover {
     color: var(--primary-blue);
 }
 
+.nav-links .login-btn,
+.nav-links .logout-btn {
+    background-color: var(--secondary-pink);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+}
 
-/* --- Responsive adjustments for STANDARD Header --- */
+.nav-links .login-btn:hover,
+.nav-links .logout-btn:hover {
+    background-color: #e05e5e;
+}
+
+/* Responsive */
 @media (max-width: 992px) {
-    .main-nav {
-        flex-direction: column; /* Apila los elementos verticalmente */
-        align-items: center; /* Centra los elementos apilados */
-        padding: 15px 10px;
-        gap: 15px; /* Espacio entre elementos apilados */
+    .main-nav-inner {
+        flex-direction: column;
+        align-items: center;
     }
-
-    /* Resetea el orden y ancho para que se apilen correctamente */
-    .search-bar,
-    .logo,
-    .nav-links {
-        order: unset; /* Quita el orden específico para el apilamiento natural */
-        width: 100%; /* Ocupan todo el ancho disponible */
-        max-width: 90%; /* Un poco de margen en los lados */
-        margin: 0; /* Elimina márgenes extra */
-    }
-
-    .logo {
-        margin-bottom: 10px;
-    }
-    .logo a img.site-logo { /* Ajuste del tamaño del logo para móviles */
-        height: 60px; /* Un poco más pequeño para pantallas chicas */
-    }
-
-    .search-bar {
-        margin-bottom: 10px;
-        flex-wrap: wrap; /* Permite que el input y botón de búsqueda se apilen */
+    .header-search, .nav-links {
+        width: 100%;
         justify-content: center;
+        margin: 10px 0;
     }
-    .search-bar input[type="text"] {
-        width: 100%;
-        margin-bottom: 10px;
-        font-size: 1em; /* Ajuste para móvil si es necesario */
+    .nav-links a {
+        margin: 0 10px;
     }
-    .search-bar button {
-        width: 100%;
+}
+
+@media (max-width: 576px) {
+    .header-search form {
+        flex-direction: column;
+        padding: 10px;
+    }
+    .btn-search-header {
         margin-left: 0;
-        font-size: 0.95em; /* Ajuste para móvil si es necesario */
-    }
-
-    .nav-links {
-        gap: 10px;
-        flex-direction: column; /* Apila los enlaces */
-    }
-
-    .nav-links a, .nav-links .btn-register-business {
+        margin-top: 10px;
         width: 100%;
-        text-align: center;
-        padding: 8px 0;
-        font-size: 1em; /* Ajuste para móvil si es necesario */
     }
 }

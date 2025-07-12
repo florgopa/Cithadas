@@ -1,75 +1,65 @@
 <?php
-// views/book_a_service.php
+session_start();
+require_once 'includes/db.php';
 
-session_start(); // Asegúrate de iniciar la sesión
-
-require_once 'includes/db.php'; // Ajusta la ruta a tu archivo db.php
-
-// Manejar mensajes de estado (si vienen de otras páginas)
-$status_message = '';
-$status_type = '';
-if (isset($_SESSION['status_message'])) {
-    $status_message = $_SESSION['status_message'];
-    $status_type = $_SESSION['status_type'];
-    unset($_SESSION['status_message']);
-    unset($_SESSION['status_type']);
+// Asegurarse de que el usuario esté logueado como cliente
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || $_SESSION['user_role'] !== 'cliente') {
+    $_SESSION['status_message'] = "Debes iniciar sesión como cliente para reservar un servicio.";
+    $_SESSION['status_type'] = "warning";
+    header("location: index.php?page=login");
+    exit;
 }
 
-// Obtener todos los servicios activos con su negocio asociado
-$sql_services = "SELECT s.id AS service_id, s.nombre_servicio AS service_name, s.descripcion AS service_description, 
-                        s.precio, s.duracion_estimada, s.categoria, 
-                        n.id AS business_id, n.nombre_negocio AS business_name, n.direccion AS business_address, 
-                        n.ciudad AS business_city, n.provincia AS business_province
-                 FROM servicio s
-                 JOIN negocio n ON s.negocio_id = n.id    /* ¡CORREGIDO AQUÍ: s.negocio_id! */
-                 WHERE s.estado = 'activo' AND n.estado = 'activo'
-                 ORDER BY n.nombre_negocio, s.nombre_servicio";
+$page_title = 'Explorar Servicios Disponibles';
+$status_message = $_SESSION['status_message'] ?? '';
+$status_type = $_SESSION['status_type'] ?? '';
+unset($_SESSION['status_message'], $_SESSION['status_type']);
 
-$result_services = $conn->query($sql_services);
+$sql = "SELECT s.id, s.nombre_servicio, s.descripcion, s.precio, s.duracion_estimada,
+               n.id AS negocio_id, n.nombre_negocio
+        FROM servicio s
+        JOIN negocio n ON s.negocio_id = n.id
+        WHERE s.estado = 'activo' AND n.estado = 'activo'
+        ORDER BY n.nombre_negocio, s.nombre_servicio";
 
-$services = [];
-if ($result_services && $result_services->num_rows > 0) {
-    while ($row = $result_services->fetch_assoc()) {
-        $services[] = $row;
-    }
-}
-$conn->close();
+$result = $conn->query($sql);
+include 'includes/header.php';
 ?>
 
 <div class="container py-4">
-    <h2 class="text-center-heading">Explorar Servicios y Reservar</h2>
+    <h2 class="text-center-heading">Explorar Servicios Disponibles</h2>
 
     <?php if ($status_message): ?>
-        <div class="alert <?php echo ($status_type === 'success') ? 'success-message' : (($status_type === 'error') ? 'error-message' : 'info-message'); ?>">
-            <?php echo $status_message; ?>
+        <div class="alert <?php echo $status_type; ?>">
+            <?php echo htmlspecialchars($status_message); ?>
         </div>
     <?php endif; ?>
 
-    <?php if (empty($services)): ?>
-        <p class="text-center">Actualmente no hay servicios disponibles para reservar. ¡Vuelve más tarde!</p>
-    <?php else: ?>
-        <div class="service-list">
-            <?php foreach ($services as $service): ?>
-                <div class="service-card card mb-4 shadow-sm">
-                    <div class="card-body">
-                        <h4 class="card-title"><?php echo htmlspecialchars($service['service_name']); ?></h4>
-                        <h5 class="card-subtitle mb-2 text-muted">
-                            <?php echo htmlspecialchars($service['business_name']); ?> 
-                            <small>(<?php echo htmlspecialchars($service['business_city'] . ', ' . $service['business_province']); ?>)</small>
-                        </h5>
-                        <p class="card-text description-text"><?php echo htmlspecialchars($service['service_description']); ?></p>
-                        <ul class="list-unstyled service-details-list">
-                            <li><strong>Categoría:</strong> <?php echo htmlspecialchars($service['categoria'] ?? 'N/A'); ?></li>
-                            <li><strong>Precio:</strong> $<?php echo htmlspecialchars(number_format($service['precio'], 2, ',', '.')); ?></li>
-                            <li><strong>Duración Estimada:</strong> <?php echo htmlspecialchars($service['duracion_estimada']); ?></li>
-                        </ul>
-                        <a href="index.php?page=book_appointment&service_id=<?php echo htmlspecialchars($service['service_id']); ?>&business_id=<?php echo htmlspecialchars($service['business_id']); ?>" 
-                           class="btn btn-primary btn-block">
-                            Reservar Ahora
-                        </a>
+    <?php if ($result && $result->num_rows > 0): ?>
+        <div class="row">
+            <?php while ($row = $result->fetch_assoc()): ?>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo htmlspecialchars($row['nombre_servicio']); ?></h5>
+                            <h6 class="card-subtitle mb-2 text-muted"><?php echo htmlspecialchars($row['nombre_negocio']); ?></h6>
+                            <p class="card-text"><?php echo htmlspecialchars($row['descripcion']); ?></p>
+                            <p><strong>Duración:</strong> <?php echo htmlspecialchars($row['duracion_estimada']); ?></p>
+                            <p><strong>Precio:</strong> $<?php echo number_format($row['precio'], 2, ',', '.'); ?></p>
+                        </div>
+                        <div class="card-footer text-center">
+                            <a href="index.php?page=book_appointment&service_id=<?php echo $row['id']; ?>&business_id=<?php echo $row['negocio_id']; ?>" class="btn btn-primary">Reservar Ahora</a>
+                        </div>
                     </div>
                 </div>
-            <?php endforeach; ?>
+            <?php endwhile; ?>
         </div>
+    <?php else: ?>
+        <p>No hay servicios disponibles por el momento.</p>
     <?php endif; ?>
 </div>
+
+<?php
+$conn->close();
+include 'includes/footer.php';
+?>

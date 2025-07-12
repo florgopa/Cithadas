@@ -72,11 +72,6 @@
     border-color: var(--secondary-pink);
 }
 
-/* Home Container */
-.home-container {
-    /* Si tienes algún estilo para el contenedor principal de tu home, va aquí */
-}
-
 /* Hero Section */
 .hero-section {
     position: relative;
@@ -111,10 +106,10 @@
 }
 
 .hero-content h1 {
-    font-size: 3.8em;
+    font-size: 3rem;
     margin-bottom: 20px;
     line-height: 1.2;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
 }
 
 .hero-content p {
@@ -132,7 +127,6 @@
     background-color: rgba(255, 255, 255, 0.95);
     border-radius: 30px;
     padding: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
 .hero-section .search-input {
@@ -147,28 +141,58 @@
 }
 
 .hero-section .search-input::placeholder {
-    color: #999;
+    color: #4e4e4e;
 }
 
 .hero-section .search-button {
     background-color: var(--primary-blue);
     color: white;
-    padding: 12px 30px;
+    padding: 12px 20px;
     border: none;
-    border-radius: 25px;
+    border-radius: 20px;
     cursor: pointer;
     font-size: 1.1em;
     transition: background-color 0.3s ease;
 }
 
 .hero-section .search-button:hover {
-    background-color: #2a2e5a;
+    background-color: var(--secondary-pink);
+    color: var(--primary-blue);
+    border-color: var(--secondary-pink);
+}
+
+.search-bar button:hover{
+    background-color: var(--secondary-pink);
+    color: var(--primary-blue);
+    border-color: var(--secondary-pink);
+}
+
+/* Visión*/
+.mission-section {
+    padding: 60px 0;
+    background-color: transparent
+    border-radius: 15px; /
+    margin-top: 50px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.mission-text {
+    max-width: 900px;
+    margin: 0 auto;
+    font-size: 1.1em;
+    line-height: 1.8;
+    color: var(--text-color-light); /* Texto más claro para la misión */
+    text-align: center;
+}
+
+.mission-text p {
+    margin-bottom: 1.2em;
 }
 
 /* How It Works Section (si la utilizas) */
 .how-it-works-section {
-    padding-top: 80px;
-    padding-bottom: 80px;
+    padding-top: 50px;
+    padding-bottom: 50px;
 }
 
 .steps-grid {
@@ -187,10 +211,6 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.step-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-}
 
 .step-icon {
     width: 60px;
@@ -218,16 +238,14 @@
     font-size: 0.95em;
 }
 
-/* Estilos para la SECCIÓN DE CATEGORÍAS POPULARES (featured-section) */
+
+/* CATEGORÍAS POPULARES*/
 .featured-section {
     padding: 80px 0;
-    background-color: var(--light-gray);
+    background-color: transparent
     text-align: center;
 }
 
-.featured-section .text-center-heading {
-    /* Mantiene el estilo general de los encabezados centrados, ya está definido arriba */
-}
 
 .featured-section .category-grid {
     display: grid;
@@ -328,35 +346,14 @@
     margin-right: auto;
 }
 
-/* Sección de la Misión (NUEVO) */
-.mission-section {
-    padding: 60px 0;
-    background-color: var(--light-gray); /* Un color de fondo suave, usando tu variable */
-    border-radius: 15px; /* Bordes redondeados */
-    margin-top: 50px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-}
-
-.mission-text {
-    max-width: 900px;
-    margin: 0 auto;
-    font-size: 1.1em;
-    line-height: 1.8;
-    color: var(--text-color-light); /* Texto más claro para la misión */
-    text-align: center;
-}
-
-.mission-text p {
-    margin-bottom: 1.2em;
-}
 
 /* Sección del Formulario de Contacto (NUEVO) */
 .contact-form-section {
-    padding: 60px 0;
+    padding: 30px 0;
     background-color: var(--white); /* Fondo blanco */
     border-radius: 15px;
-    margin-top: 50px;
-    margin-bottom: 50px; /* Para separarlo del footer */
+    margin-top: 30px;
+    margin-bottom: 20px; /* Para separarlo del footer */
     box-shadow: 0 4px 15px rgba(0,0,0,0.07);
 }
 
@@ -416,4 +413,5 @@
     font-size: 1.1em;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s
+    transition: background-color 0.3s 
+}

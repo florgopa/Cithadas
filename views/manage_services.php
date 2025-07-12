@@ -34,7 +34,6 @@ if (!$business_id) {
 }
 
 // --- Lógica para obtener los servicios existentes del negocio ---
-// ¡MODIFICACIÓN AQUÍ! Añadimos 'categoria' a la SELECT
 $sql_get_services = "SELECT id, nombre_servicio, descripcion, precio, duracion_estimada, categoria, estado FROM servicio WHERE negocio_id = ?";
 if ($stmt_get_services = $conn->prepare($sql_get_services)) {
     $stmt_get_services->bind_param("i", $business_id);
@@ -51,34 +50,31 @@ $service_id_to_edit = '';
 $nombre_servicio_edit = '';
 $descripcion_edit = '';
 $precio_edit = '';
-$duracion_estimada_edit = ''; // Ahora almacenará la etiqueta de texto
-$categoria_edit = ''; // ¡NUEVO! Variable para la categoría
+$duracion_estimada_edit = '';
+$categoria_edit = '';
 $estado_edit = 'activo';
 $form_action = 'add_service'; // Default action for the form
 
 // Lógica para precargar datos si se está editando un servicio
 if (isset($_GET['action']) && $_GET['action'] == 'edit' && isset($_GET['service_id'])) {
     $service_id_to_edit = intval($_GET['service_id']);
-    // ¡MODIFICACIÓN AQUÍ! Añadimos 'categoria' a la SELECT para la edición
     $sql_get_single_service = "SELECT id, nombre_servicio, descripcion, precio, duracion_estimada, categoria, estado FROM servicio WHERE id = ? AND negocio_id = ?";
     if ($stmt_single = $conn->prepare($sql_get_single_service)) {
         $stmt_single->bind_param("ii", $service_id_to_edit, $business_id);
         $stmt_single->execute();
-        // ¡MODIFICACIÓN AQUÍ! Añadimos $s_categoria a bind_result
         $stmt_single->bind_result($s_id, $s_nombre, $s_descripcion, $s_precio, $s_duracion, $s_categoria, $s_estado);
         if ($stmt_single->fetch()) {
             $nombre_servicio_edit = htmlspecialchars($s_nombre);
             $descripcion_edit = htmlspecialchars($s_descripcion);
             $precio_edit = htmlspecialchars($s_precio);
-            $duracion_estimada_edit = htmlspecialchars($s_duracion); // Obtiene la etiqueta guardada
-            $categoria_edit = htmlspecialchars($s_categoria); // ¡NUEVO! Asignar la categoría
+            $duracion_estimada_edit = htmlspecialchars($s_duracion);
+            $categoria_edit = htmlspecialchars($s_categoria);
             $estado_edit = htmlspecialchars($s_estado);
             $form_action = 'edit_service';
         } else {
-            // Servicio no encontrado o no pertenece a este negocio
             $_SESSION['status_message'] = "Servicio no encontrado o no tienes permiso para editarlo.";
             $_SESSION['status_type'] = "error";
-            header("location: index.php?page=manage_services"); // Redirigir para limpiar URL
+            header("location: index.php?page=manage_services");
             exit;
         }
         $stmt_single->close();
@@ -97,7 +93,7 @@ if (isset($_SESSION['status_message'])) {
 
 // Opciones para el selector de duración
 $duracion_options = [
-    ''            => 'Selecciona una duración (Opcional)', // Opción por defecto vacía/null
+    ''            => 'Selecciona una duración (Opcional)',
     '15-30min'    => '15-30 minutos',
     '30min-1h'    => '30 minutos - 1 hora',
     '2h'          => '2 horas',
@@ -106,9 +102,9 @@ $duracion_options = [
     '+5h'         => 'Más de 5 horas',
 ];
 
-// ¡NUEVO! Opciones para el selector de categoría (deben coincidir con tu ENUM de DB)
+// Opciones para el selector de categoría (deben coincidir con tu ENUM de DB)
 $categoria_options = [
-    '' => 'Selecciona una categoría', // Opción por defecto
+    '' => 'Selecciona una categoría',
     'Estética Corporal' => 'Estética Corporal',
     'Estética Facial' => 'Estética Facial',
     'Masajes' => 'Masajes',
@@ -121,17 +117,17 @@ $categoria_options = [
 ];
 ?>
 
-<div class="register-business-container">
+<div class="manage-services-container container">
     <h2 class="text-center-heading">Gestionar Mis Servicios</h2>
 
     <?php if ($status_message): ?>
         <div class="alert <?php echo ($status_type === 'success') ? 'success-message' : (($status_type === 'error') ? 'error-message' : 'info-message'); ?>">
-            <?php echo $status_message; ?>
+            <?php echo htmlspecialchars($status_message); ?>
         </div>
     <?php endif; ?>
 
     <h3 class="form-section-heading"><?php echo ($form_action == 'add_service') ? 'Añadir Nuevo Servicio' : 'Editar Servicio'; ?></h3>
-    <form action="backend/business/process_services.php" method="POST" class="service-form">
+    <form action="backend/business/process_services.php" method="POST" class="service-form business-form">
         <input type="hidden" name="action" value="<?php echo $form_action; ?>">
         <?php if ($form_action == 'edit_service'): ?>
             <input type="hidden" name="service_id" value="<?php echo $service_id_to_edit; ?>">
@@ -198,11 +194,12 @@ $categoria_options = [
         <p class="no-services-message">Aún no tienes servicios registrados. ¡Usa el formulario de arriba para añadir uno!</p>
     <?php else: ?>
         <div class="table-container">
-            <table class="service-list-table">
+            <table class="service-list-table common-table">
                 <thead>
                     <tr>
                         <th>Nombre</th>
-                        <th>Categoría</th> <th>Precio</th>
+                        <th>Categoría</th>
+                        <th>Precio</th>
                         <th>Duración</th>
                         <th>Estado</th>
                         <th>Acciones</th>
@@ -212,7 +209,8 @@ $categoria_options = [
                     <?php foreach ($current_services as $service): ?>
                         <tr>
                             <td><?php echo htmlspecialchars($service['nombre_servicio']); ?></td>
-                            <td><?php echo htmlspecialchars($service['categoria'] ?? 'N/A'); ?></td> <td>$<?php echo htmlspecialchars(number_format($service['precio'], 2, ',', '.')); ?></td>
+                            <td><?php echo htmlspecialchars($service['categoria'] ?? 'N/A'); ?></td>
+                            <td>$<?php echo htmlspecialchars(number_format($service['precio'], 2, ',', '.')); ?></td>
                             <td>
                                 <?php
                                     // Muestra la etiqueta o "N/A" si es NULL/vacío
@@ -225,8 +223,8 @@ $categoria_options = [
                                 </span>
                             </td>
                             <td>
-                                <a href="index.php?page=manage_services&action=edit&service_id=<?php echo $service['id']; ?>" class="action-button edit-button">Editar</a>
-                                <a href="backend/business/process_services.php?action=delete&service_id=<?php echo $service['id']; ?>" class="action-button delete-button" onclick="return confirm('¿Estás seguro de que quieres eliminar este servicio?');">Eliminar</a>
+                                <a href="index.php?page=manage_services&action=edit&service_id=<?php echo $service['id']; ?>" class="btn-edit">Editar</a>
+                                <a href="backend/business/process_services.php?action=delete&service_id=<?php echo $service['id']; ?>" class="btn-delete" onclick="return confirm('¿Estás seguro de que quieres eliminar este servicio?');">Eliminar</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -235,3 +233,4 @@ $categoria_options = [
         </div>
     <?php endif; ?>
 </div>
+

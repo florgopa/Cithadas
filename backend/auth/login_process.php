@@ -1,110 +1,86 @@
 <?php
 // backend/auth/login_process.php
-
-// HABILITAR ERRORES (Mantenemos esto para cualquier otro error general, puedes quitarlo en producción)
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-// Iniciar la sesión al principio
 session_start();
 
 // Incluir la conexión a la base de datos
-require_once '../../includes/db.php'; // Ajusta la ruta si es necesario
+require_once '../../includes/db.php'; // Asegúrate de que esta ruta sea correcta
 
-// Verificar si el formulario ha sido enviado
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login_btn'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = trim($_POST["email"] ?? '');
+    $password = trim($_POST["password"] ?? '');
 
-    // 1. Inicializar variables para errores y datos del formulario
-    $errors = [];
-    $input_email = '';
-
-    // 2. Obtener y limpiar los datos del formulario
-    $email = trim($_POST['email'] ?? '');
-    $password = $_POST['password'] ?? '';
-
-    // Almacenar el email en la sesión para rellenar el formulario en caso de error
-    $_SESSION['old_input'] = ['email' => $email];
-
-    // 3. Validar los datos
-    if (empty($email)) {
-        $errors['email_err'] = "Por favor, ingresa tu correo electrónico.";
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors['email_err'] = "El formato del correo electrónico no es válido.";
-    } else {
-        $input_email = mysqli_real_escape_string($conn, $email); // Sanear para la consulta SQL
+    // Validación básica de campos vacíos
+    if (empty($email) || empty( $password)) {
+        $_SESSION['status_message'] = "Por favor, ingresa tu correo electrónico y contraseña.";
+        $_SESSION['status_type'] = "error";
+        header("location: ../../index.php?page=login"); // Redirige de vuelta al login
+        exit;
     }
 
-    if (empty($password)) {
-        $errors['password_err'] = "Por favor, ingresa tu contraseña.";
-    }
+    // Preparar la consulta SQL para obtener el usuario por email
+    $sql = "SELECT id, nombre, email, contraseña, rol FROM usuario WHERE email = ?";
 
-    // 4. Si no hay errores de validación de formato, intentar verificar credenciales
-    if (empty($errors)) {
-        // MODIFICACIÓN AQUÍ: AÑADIMOS 'estado' A LA CONSULTA SELECT
-        $sql = "SELECT id, nombre, email, contraseña, rol, estado FROM usuario WHERE email = ?";
+    if ($stmt = $conn->prepare($sql)) {
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-        if ($stmt = $conn->prepare($sql)) {
-            $stmt->bind_param("s", $input_email); // "s" para string (email)
-            $stmt->execute();
-            $stmt->store_result();
+        if ($result->num_rows == 1) {
+            $user = $result->fetch_assoc();
 
-            if ($stmt->num_rows == 1) {
-                // MODIFICACIÓN AQUÍ: AÑADIMOS $estado A bind_result
-                $stmt->bind_result($id, $name, $email_db, $hashed_password, $role, $estado);
-                $stmt->fetch();
+            // Verificar la contraseña hasheada
+            if (password_verify($password, $user['contraseña'])) {
+                // Contraseña correcta, iniciar sesión
+                $_SESSION['loggedin'] = true;
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['user_name'] = $user['nombre'];
+                $_SESSION['user_email'] = $user['email'];
+                $_SESSION['user_role'] = $user['rol'];
 
-                // Verificar la contraseña usando password_verify
-                if (password_verify($password, $hashed_password)) {
-                    // **NUEVA VERIFICACIÓN: AHORA CHEQUEAMOS EL ESTADO DEL USUARIO**
-                    if ($estado === 'activo') { // Solo permite login si el estado es 'activo'
-                        // Contraseña correcta y usuario activo, iniciar sesión
-                        session_regenerate_id(true); // Regenera el ID de sesión para seguridad (evita Session Fixation)
-
-                        $_SESSION['loggedin'] = true;
-                        $_SESSION['user_id'] = $id;
-                        $_SESSION['user_name'] = $name;
-                        $_SESSION['user_email'] = $email_db;
-                        $_SESSION['user_role'] = $role;
-
-                        // Redirigir al usuario según su rol o a la página de inicio
-                        if ($role == 'admin' || $role == 'negocio') {
-                            header("location: ../../index.php?page=dashboard"); // Redirigir a un dashboard para admins/negocios
-                        } else {
-                            header("location: ../../index.php?page=home"); // Redirigir al home para clientes
-                        }
-                        exit(); // Es crucial terminar el script después de una redirección
-                    } else {
-                        // Usuario no activo (pendiente, inactivo, etc.)
-                        $errors['general_err'] = "Tu cuenta no está activa. Contacta al administrador.";
-                    }
-                } else {
-                    // Contraseña incorrecta
-                    $errors['general_err'] = "Credenciales incorrectas. Por favor, verifica tu correo y contraseña.";
-                }
+                // Redirigir SIEMPRE al dashboard genérico después del login exitoso
+                header("location: ../../index.php?page=dashboard");
+                exit; // Es crucial llamar a exit() después de header()
             } else {
-                // Email no encontrado
-                $errors['general_err'] = "Credenciales incorrectas. Por favor, verifica tu correo y contraseña.";
+                // Contraseña incorrecta
+                $_SESSION['status_message'] = "Contraseña incorrecta. Intenta de nuevo.";
+                $_SESSION['status_type'] = "error";
             }
-            $stmt->close();
         } else {
-            $errors['general_err'] = "Error interno del sistema al preparar la consulta. (" . $conn->error . ")";
+            // Usuario no encontrado
+            $_SESSION['status_message'] = "No se encontró una cuenta con ese correo electrónico.";
+            $_SESSION['status_type'] = "error";
         }
+        $stmt->close();
+    } else {
+        $_SESSION['status_message'] = "Error al preparar la consulta de login: " . $conn->error;
+        $_SESSION['status_type'] = "error";
     }
 
-    // Si hay errores (ya sea de validación o de credenciales), guardarlos en la sesión
-    if (!empty($errors)) {
-        $_SESSION['login_errors'] = $errors;
-        header("location: ../../index.php?page=login"); // Redirigir de vuelta al formulario de login
-        exit();
-    }
-
-    // Cerrar la conexión a la base de datos
-    $conn->close();
-
+    $conn->close(); // Cerrar la conexión a la base de datos
+    header("location: ../../index.php?page=login"); // Redirige de vuelta al login en caso de error
+    exit;
 } else {
-    // Si se intenta acceder a este script directamente sin enviar el formulario POST
+    // Si se intenta acceder directamente sin POST
     header("location: ../../index.php?page=login");
-    exit();
+    exit;
 }
+
+// Función de ejemplo para obtener el ID del negocio si el usuario es un negocio
+// Necesitarías implementar esto si aún no lo tienes
+/*
+function obtenerBusinessIdDelUsuario($userId, $conn) {
+    $businessId = null;
+    $sql = "SELECT id FROM negocio WHERE usuario_id = ?";
+    if ($stmt = $conn->prepare($sql)) {
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $stmt->bind_result($b_id);
+        if ($stmt->fetch()) {
+            $businessId = $b_id;
+        }
+        $stmt->close();
+    }
+    return $businessId;
+}
+*/
 ?>

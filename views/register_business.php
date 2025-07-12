@@ -17,6 +17,7 @@ $message = '';
 $message_type = '';
 
 // Verificar si el usuario ya tiene un negocio registrado
+// Ahora las columnas 'ciudad', 'provincia', 'website', 'horario_apertura', 'horario_cierre' existen
 $sql_check = "SELECT id, nombre_negocio, descripcion, direccion, ciudad, provincia, telefono, email_negocio, website, horario_apertura, horario_cierre, estado FROM negocio WHERE usuario_id = ?";
 if ($stmt_check = $conn->prepare($sql_check)) {
     $stmt_check->bind_param("i", $user_id);
@@ -45,9 +46,9 @@ if (isset($_SESSION['status_message'])) {
 }
 ?>
 
-<div class="register-business-container">
-    <h2><?php echo $business_exists ? 'Editar tu Negocio' : 'Registrar tu Negocio'; ?></h2>
-    <p><?php echo $business_exists ? 'Actualiza la información de tu salón.' : 'Completa los datos de tu salón o emprendimiento para que los clientes puedan encontrarte.'; ?></p>
+<div class="register-business-container container">
+    <h2 class="text-center-heading"><?php echo $business_exists ? 'Editar tu Negocio' : 'Registrar tu Negocio'; ?></h2>
+    <p class="text-center"><?php echo $business_exists ? 'Actualiza la información de tu salón.' : 'Completa los datos de tu salón o emprendimiento para que los clientes puedan encontrarte.'; ?></p>
 
     <?php if (!empty($message)): ?>
         <div class="alert <?php echo $message_type === 'success' ? 'success-message' : ($message_type === 'error' ? 'error-message' : 'info-message'); ?>">
@@ -55,7 +56,7 @@ if (isset($_SESSION['status_message'])) {
         </div>
     <?php endif; ?>
 
-    <form action="backend/business/process_business_registration.php" method="POST">
+    <form action="backend/business/process_business_registration.php" method="POST" class="business-form">
         <?php if ($business_exists): ?>
             <input type="hidden" name="business_id" value="<?php echo htmlspecialchars($business_data['id']); ?>">
         <?php endif; ?>
@@ -113,3 +114,5 @@ if (isset($_SESSION['status_message'])) {
         <button type="submit" class="btn-submit"><?php echo $business_exists ? 'Actualizar Negocio' : 'Registrar Negocio'; ?></button>
     </form>
 </div>
+
+

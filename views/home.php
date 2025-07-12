@@ -49,6 +49,28 @@ if (isset($_SESSION['contact_data'])) {
         </div>
     </section>
 
+    <section class="how-it-works-section py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center-heading">¿Cómo Funciona?</h2>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-icon">1</div>
+                    <h4>Explora Servicios</h4>
+                    <p>Navega por una amplia variedad de servicios de belleza y bienestar, y descubre negocios cerca de ti.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-icon">2</div>
+                    <h4>Reserva tu Turno</h4>
+                    <p>Elige el servicio, profesional y horario que mejor se adapte a tu agenda. ¡Fácil y rápido!</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-icon">3</div>
+                    <h4>Disfruta de tu Cita</h4>
+                    <p>Recibe recordatorios y prepárate para disfrutar de tu experiencia sin preocupaciones.</p>
+                </div>
+            </div>
+        </div>
+    </section>
     <section class="featured-section py-5">
         <div class="container">
             <h2 class="text-center-heading">Categorías Populares</h2>
@@ -91,7 +113,7 @@ if (isset($_SESSION['contact_data'])) {
 
     <section id="contact-section" class="contact-form-section container">
         <h2 class="text-center-heading">Contáctanos</h2>
-        <p class="text-center">¿Tienes alguna pregunta, sugerencia o necesitas soporte? ¡Estamos aquí para ayudarte! Completa el siguiente formulario y nos pondremos en contacto contigo a la brevedad.</p>
+        <p class="text-center">¿Tienes alguna pregunta, sugerencia o necesitas soporte?     Completa el siguiente formulario y nos pondremos en contacto contigo a la brevedad.</p>
 
         <?php if ($status_message): ?>
             <div class="alert <?php echo ($status_type === 'success') ? 'success-message' : (($status_type === 'error') ? 'error-message' : 'info-message'); ?>">
@@ -135,5 +157,4 @@ if (isset($_SESSION['contact_data'])) {
 </div>
 
 <?php
-// Aquí iría el footer de tu sitio, o cualquier lógica final
 ?>

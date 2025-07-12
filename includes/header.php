@@ -8,9 +8,12 @@ $page_title = $page_title ?? 'Cithadas - Beauty & Personal Care Appointments';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($page_title); ?></title>
 
-   <link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- Tipografía -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <!-- Estilos -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/footer.css">
@@ -29,11 +32,7 @@ $page_title = $page_title ?? 'Cithadas - Beauty & Personal Care Appointments';
 <body>
     <header>
         <nav class="main-nav">
-            <div class="logo">
-                <a href="index.php?page=home">
-                    <img src="img/Cithadas.svg" alt="Logo de Cithadas" class="site-logo">
-                </a>
-            </div>
+            <!-- Barra de búsqueda a la izquierda -->
             <div class="search-bar">
                 <form action="index.php" method="GET">
                     <input type="hidden" name="page" value="search_results">
@@ -41,6 +40,15 @@ $page_title = $page_title ?? 'Cithadas - Beauty & Personal Care Appointments';
                     <button type="submit">Buscar</button>
                 </form>
             </div>
+
+            <!-- Logo al centro -->
+            <div class="logo">
+                <a href="index.php?page=home">
+                    <img src="img/Cithadas.svg" alt="Logo de Cithadas" class="site-logo">
+                </a>
+            </div>
+
+            <!-- Enlaces de navegación a la derecha -->
             <div class="nav-links">
                 <?php if (isset($_SESSION['user_id'])): ?>
                     <a href="index.php?page=appointments">Mis Citas</a>
@@ -50,9 +58,10 @@ $page_title = $page_title ?? 'Cithadas - Beauty & Personal Care Appointments';
                     <a href="backend/auth/logout.php">Cerrar Sesión (<?php echo htmlspecialchars($_SESSION['user_name'] ?? ''); ?>)</a>
                 <?php else: ?>
                     <a href="index.php?page=register">Registrarse</a>
-                    <a href="index.php?page=login">Iniciar Sesión</a>
+                    <a href="index.php?page=login" class="login-btn">Iniciar Sesión</a>
                 <?php endif; ?>
             </div>
         </nav>
     </header>
-    <main></main>
+
+    <main>

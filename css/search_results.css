@@ -1,9 +1,8 @@
-/* Contenedor principal de la página */
 .book-service-container {
     padding: 40px 20px;
-    background-color: var(--light-gray);
+    background-color: var(--light-gray); /* Usa la variable de tu style.css */
     border-radius: 15px;
-    box-shadow: 0 5px 20px var(--shadow-medium);
+    box-shadow: 0 5px 20px var(--shadow-medium); /* Usa la variable de tu style.css */
     margin-top: 30px;
     margin-bottom: 30px;
     max-width: 1200px;
@@ -12,16 +11,10 @@
     text-align: center;
 }
 
-.text-center-heading {
-    color: var(--primary-blue);
-    font-size: 2.8em;
-    margin-bottom: 20px;
-    font-weight: 700;
-}
-
+/* Mensaje cuando no hay servicios */
 .no-services-message {
     font-size: 1.2em;
-    color: var(--text-color-light);
+    color: var(--text-color-light); /* Usa la variable de tu style.css */
     margin-top: 30px;
 }
 
@@ -32,13 +25,17 @@
     gap: 30px; /* Espacio entre tarjetas */
     margin-top: 40px;
     justify-content: center;
+    padding: 10px;
+    background-color: var(--white); /* Usa la variable de tu style.css */
+    border-radius: 10px;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.02); /* Sombra interna sutil */
 }
 
 /* Estilos para cada tarjeta de servicio */
 .service-card {
-    background-color: var(--card-bg);
+    background-color: var(--card-bg); /* Usa la variable de tu style.css */
     border-radius: 15px;
-    box-shadow: 0 4px 15px var(--shadow-light);
+    box-shadow: 0 4px 15px var(--shadow-light); /* Usa la variable de tu style.css */
     overflow: hidden; /* Asegura que el contenido no se salga de los bordes redondeados */
     display: flex;
     flex-direction: column;
@@ -48,7 +45,7 @@
 
 .service-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 8px 25px var(--shadow-medium);
+    box-shadow: 0 8px 25px var(--shadow-medium); /* Usa la variable de tu style.css */
 }
 
 .service-card .card-content {
@@ -57,7 +54,7 @@
 }
 
 .service-card .card-title {
-    color: var(--primary-blue);
+    color: var(--primary-blue); /* Usa la variable de tu style.css */
     font-size: 1.8em;
     margin-bottom: 10px;
     font-weight: 600;
@@ -65,7 +62,7 @@
 
 .service-card .card-subtitle {
     font-size: 1.1em;
-    color: var(--text-color-light);
+    color: var(--text-color-light); /* Usa la variable de tu style.css */
     margin-bottom: 15px;
     font-weight: normal;
 }
@@ -76,7 +73,7 @@
 }
 
 .service-card .description-text {
-    color: var(--text-color);
+    color: var(--text-color); /* Usa la variable de tu style.css */
     font-size: 1em;
     line-height: 1.6;
     margin-bottom: 20px;
@@ -87,7 +84,7 @@
     padding: 0;
     margin-bottom: 20px;
     font-size: 0.95em;
-    color: var(--text-color);
+    color: var(--text-color); /* Usa la variable de tu style.css */
 }
 
 .service-details-list li {
@@ -95,13 +92,13 @@
 }
 
 .service-details-list li strong {
-    color: var(--dark-blue);
+    color: var(--dark-blue); /* Usa la variable de tu style.css */
 }
 
 .service-card .card-actions {
     padding: 15px 25px;
-    background-color: var(--light-gray);
-    border-top: 1px solid var(--border-color);
+    background-color: var(--light-gray); /* Usa la variable de tu style.css */
+    border-top: 1px solid var(--border-color); /* Usa la variable de tu style.css */
     text-align: center;
 }
 
@@ -110,8 +107,8 @@
     display: block; /* Ocupa todo el ancho disponible */
     width: 100%;
     padding: 12px 20px;
-    background-color: var(--secondary-pink); /* Un color llamativo para el botón */
-    color: var(--white);
+    background-color: var(--secondary-pink); /* Usa la variable de tu style.css */
+    color: var(--white); /* Usa la variable de tu style.css */
     text-decoration: none;
     border: none;
     border-radius: 8px;
@@ -124,31 +121,6 @@
 .btn-book-service:hover {
     background-color: #e05e5e; /* Tono más oscuro al pasar el ratón */
     transform: translateY(-2px);
-}
-
-/* Estilos para alertas (ya definidos en otros archivos, pero incluidos aquí para autocontenido) */
-.alert {
-    padding: 10px;
-    margin-bottom: 15px;
-    border-radius: 4px;
-    text-align: center;
-    font-size: 0.95em;
-}
-.success-message {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
-}
-.error-message {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-}
-.info-message {
-    color: #31708f;
-    background-color: #d9edf7;
-    border-color: #bce8f1;
-    border: 1px solid #bce8f1;
 }
 
 /* Media Queries para Responsividad */

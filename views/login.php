@@ -1,58 +1,68 @@
 <?php
 // views/login.php
 
-// Inicializar variables para mensajes y valores de formulario (por si hay errores)
-$email = $password = '';
-$email_err = $password_err = '';
-$general_err = '';
-$success_msg = '';
+// Es CRUCIAL que session_start() se llame una única vez al principio de index.php
+// (o en un archivo de configuración que index.php incluya muy al principio).
+// Si ya lo tienes globalmente, NO lo añadas aquí para evitar el "Ignoring session_start()" notice.
 
-// Si hay algún mensaje de error o éxito que viene del backend, lo mostramos
-if (isset($_SESSION['login_errors'])) {
-    $errors = $_SESSION['login_errors'];
-    $email_err = $errors['email_err'] ?? '';
-    $password_err = $errors['password_err'] ?? '';
-    $general_err = $errors['general_err'] ?? ''; // Para errores generales (ej. credenciales incorrectas)
-    // Recuperar valores antiguos para que el usuario no tenga que reescribir el email
-    $email = $_SESSION['old_input']['email'] ?? '';
-    unset($_SESSION['login_errors']); // Limpiar los errores después de mostrarlos
-    unset($_SESSION['old_input']); // Limpiar los inputs antiguos
+$page_title = "Iniciar Sesión - Cithadas"; // Título de la página
+
+// --- Lógica para manejar y mostrar mensajes de estado de la sesión ---
+$status_message = '';
+$status_type = '';
+
+// --- DEBUG: Imprime el contenido de $_SESSION al llegar a login.php ---
+echo "<!-- DEBUG (views/login.php): Contenido de SESSION al cargar: -->";
+echo "<!-- " . print_r($_SESSION, true) . " -->";
+echo "<!-- FIN DEBUG -->";
+
+if (isset($_SESSION['status_message'])) {
+    $status_message = $_SESSION['status_message'];
+    $status_type = $_SESSION['status_type'];
+    // Limpiar los mensajes de la sesión para que no se muestren de nuevo
+    unset($_SESSION['status_message']);
+    unset($_SESSION['status_type']);
 }
-
-// Mensaje de éxito si viene desde el registro
-if (isset($_SESSION['register_success'])) {
-    $success_msg = $_SESSION['register_success'];
-    unset($_SESSION['register_success']); // Limpiar el mensaje de éxito después de mostrarlo
-}
-
+// --- Fin de la lógica de mensajes ---
 ?>
 
 <div class="login-container">
-    <h2>Iniciar Sesión</h2>
+    <h2 class="text-center-heading">Iniciar Sesión</h2>
 
-    <?php if (!empty($success_msg)): ?>
-        <div class="alert success-message"><?php echo htmlspecialchars($success_msg); ?></div>
-    <?php endif; ?>
-
-    <?php if (!empty($general_err)): ?>
-        <div class="alert error-message"><?php echo htmlspecialchars($general_err); ?></div>
-    <?php endif; ?>
-
-    <form action="backend/auth/login_process.php" method="POST">
-        <div class="form-group">
-            <label for="email">Correo electrónico:</label>
-            <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" required>
-            <span class="error-message"><?php echo $email_err; ?></span>
+    <?php
+    // --- Sección para mostrar los mensajes de estado ---
+    if ($status_message):
+        // Clases CSS para los diferentes tipos de mensajes (éxito, error, info)
+        $alert_class = '';
+        if ($status_type === 'success') {
+            $alert_class = 'success-message';
+        } elseif ($status_type === 'error') {
+            $alert_class = 'error-message';
+        } else {
+            $alert_class = 'info-message';
+        }
+    ?>
+        <div class="alert <?php echo $alert_class; ?>">
+            <?php echo htmlspecialchars($status_message); ?>
         </div>
+    <?php endif; ?>
+    <!-- --- Fin de la sección de mensajes --- -->
 
+    <form action="backend/auth/login_process.php" method="POST" class="login-form">
+        <div class="form-group">
+            <label for="email">Correo Electrónico:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
         <div class="form-group">
             <label for="password">Contraseña:</label>
             <input type="password" id="password" name="password" required>
-            <span class="error-message"><?php echo $password_err; ?></span>
         </div>
-
-        <button type="submit" name="login_btn">Ingresar</button>
+        <button type="submit" class="btn-submit">Iniciar Sesión</button>
     </form>
-    <p class="text-center mt-3">¿No tienes una cuenta? <a href="index.php?page=register">Regístrate aquí</a></p>
+    <p class="register-link">¿No tienes una cuenta? <a href="index.php?page=register">Regístrate aquí</a></p>
 </div>
 
+<?php
+// Asegúrate de que los estilos CSS para .alert, .success-message, .error-message, .info-message estén definidos.
+// Si no los tienes, puedes usar el ejemplo de CSS que te dejé comentado en la inmersiva anterior.
+?>
