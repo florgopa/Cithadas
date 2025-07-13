@@ -19,7 +19,7 @@
 }
 
 .business-list {
-    overflow-x: auto; /* Permite scroll horizontal en pantallas pequeñas */
+    overflow-x: auto; 
 }
 
 .business-list table {
