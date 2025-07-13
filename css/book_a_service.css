@@ -1,189 +1,148 @@
-/* Contenedor principal de la página */
-.book-service-container {
+/* CONTENEDOR PRINCIPAL */
+.container {
     padding: 40px 20px;
-    background-color: var(--light-gray);
-    border-radius: 15px;
-    box-shadow: 0 5px 20px var(--shadow-medium);
-    margin-top: 30px;
-    margin-bottom: 30px;
     max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
+    margin: 0 auto;
 }
 
+/* TÍTULO PRINCIPAL */
 .text-center-heading {
     color: var(--primary-blue);
-    font-size: 2.8em;
-    margin-bottom: 20px;
+    font-size: 2.5em;
+    text-align: center;
+    margin-bottom: 30px;
     font-weight: 700;
 }
 
-.no-services-message {
-    font-size: 1.2em;
-    color: var(--text-color-light);
-    margin-top: 30px;
-}
-
-/* Grid para las tarjetas de servicio */
-.service-list-grid {
+/* GRID DE TARJETAS DE SERVICIOS */
+.row {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Columnas flexibles */
-    gap: 30px; /* Espacio entre tarjetas */
-    margin-top: 40px;
-    justify-content: center;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    margin-top: 20px;
 }
 
-/* Estilos para cada tarjeta de servicio */
-.service-card {
-    background-color: var(--card-bg);
-    border-radius: 15px;
-    box-shadow: 0 4px 15px var(--shadow-light);
-    overflow: hidden; /* Asegura que el contenido no se salga de los bordes redondeados */
+/* TARJETA DE SERVICIO */
+.card {
+    background-color: var(--card-bg, #fff);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    text-align: left; /* Alinea el texto a la izquierda dentro de la tarjeta */
+    transition: transform 0.3s ease;
 }
 
-.service-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 8px 25px var(--shadow-medium);
+.card:hover {
+    transform: translateY(-5px);
 }
 
-.service-card .card-content {
-    padding: 25px;
-    flex-grow: 1; /* Permite que el contenido crezca y empuje el botón hacia abajo */
+/* CONTENIDO DE LA TARJETA */
+.card-body {
+    padding: 20px 25px;
+    flex-grow: 1;
 }
 
-.service-card .card-title {
+.card-title {
+    font-size: 1.5em;
     color: var(--primary-blue);
-    font-size: 1.8em;
-    margin-bottom: 10px;
-    font-weight: 600;
-}
-
-.service-card .card-subtitle {
-    font-size: 1.1em;
-    color: var(--text-color-light);
-    margin-bottom: 15px;
-    font-weight: normal;
-}
-
-.service-card .card-subtitle small {
-    font-size: 0.9em;
-    color: #999;
-}
-
-.service-card .description-text {
-    color: var(--text-color);
-    font-size: 1em;
-    line-height: 1.6;
-    margin-bottom: 20px;
-}
-
-.service-details-list {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 20px;
-    font-size: 0.95em;
-    color: var(--text-color);
-}
-
-.service-details-list li {
-    margin-bottom: 8px;
-}
-
-.service-details-list li strong {
-    color: var(--dark-blue);
-}
-
-.service-card .card-actions {
-    padding: 15px 25px;
-    background-color: var(--light-gray);
-    border-top: 1px solid var(--border-color);
-    text-align: center;
-}
-
-/* Estilo para el botón de reservar */
-.btn-book-service {
-    display: block; /* Ocupa todo el ancho disponible */
-    width: 100%;
-    padding: 12px 20px;
-    background-color: var(--secondary-pink); /* Un color llamativo para el botón */
-    color: var(--white);
-    text-decoration: none;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1em;
     font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-bottom: 10px;
 }
 
-.btn-book-service:hover {
-    background-color: #e05e5e; /* Tono más oscuro al pasar el ratón */
-    transform: translateY(-2px);
-}
-
-/* Estilos para alertas (ya definidos en otros archivos, pero incluidos aquí para autocontenido) */
-.alert {
-    padding: 10px;
+.card-subtitle {
+    font-size: 1.1em;
+    color: var(--text-color-light, #666);
     margin-bottom: 15px;
-    border-radius: 4px;
-    text-align: center;
-    font-size: 0.95em;
 }
-.success-message {
+
+.card-text {
+    color: var(--text-color, #333);
+    font-size: 0.95em;
+    margin-bottom: 15px;
+}
+
+.card-body p {
+    margin-bottom: 10px;
+}
+
+/* FOOTER CON BOTÓN */
+.card-footer {
+    background-color: var(--light-gray, #f9f9f9);
+    padding: 15px 20px;
+    border-top: 1px solid var(--border-color, #ddd);
+    text-align: center;
+}
+
+/* BOTÓN DE RESERVA */
+.btn-book-service,
+.btn-outline-secondary,
+.btn-primary {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-book-service,
+.btn-primary {
+    background-color: var(--secondary-pink, #ff7a7a);
+    color: white;
+    border: none;
+}
+
+.btn-book-service:hover,
+.btn-primary:hover {
+    background-color: #e05656;
+}
+
+.btn-outline-secondary {
+    background-color: transparent;
+    border: 2px solid #ccc;
+    color: #666;
+}
+
+.btn-outline-secondary:hover {
+    border-color: var(--secondary-pink, #ff7a7a);
+    color: var(--secondary-pink, #ff7a7a);
+}
+
+/* MENSAJES DE ESTADO */
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    font-size: 0.95em;
+    text-align: center;
+}
+.success {
     background-color: #d4edda;
     color: #155724;
     border: 1px solid #c3e6cb;
 }
-.error-message {
+.error {
     background-color: #f8d7da;
     color: #721c24;
     border: 1px solid #f5c6cb;
 }
-.info-message {
-    color: #31708f;
-    background-color: #d9edf7;
-    border-color: #bce8f1;
-    border: 1px solid #bce8f1;
+.warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
 }
 
-/* Media Queries para Responsividad */
-@media (max-width: 992px) {
-    .service-list-grid {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 25px;
-    }
-}
-
+/* RESPONSIVO */
 @media (max-width: 768px) {
-    .book-service-container {
-        padding: 20px 15px;
-        margin-top: 20px;
-        margin-bottom: 20px;
+    .card-title {
+        font-size: 1.3em;
     }
-    .text-center-heading {
-        font-size: 2.2em;
-    }
-    .service-list-grid {
-        grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
-        gap: 20px;
-    }
-    .service-card .card-title {
-        font-size: 1.5em;
-    }
-    .service-card .card-subtitle {
+    .card-subtitle {
         font-size: 1em;
     }
-    .service-card .description-text,
-    .service-details-list {
+    .card-text {
         font-size: 0.9em;
-    }
-    .btn-book-service {
-        font-size: 1em;
-        padding: 10px 15px;
     }
 }

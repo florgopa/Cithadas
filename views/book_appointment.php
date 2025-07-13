@@ -1,7 +1,5 @@
 <?php
 
-error_reporting(E_ALL); ini_set('display_errors', 1)
-
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || $_SESSION['user_role'] !== 'cliente') {
     $_SESSION['status_message'] = "Debes iniciar sesión como cliente para reservar un servicio.";
     $_SESSION['status_type'] = "warning";
@@ -88,37 +86,74 @@ $today = date('Y-m-d');
         <p><strong>Duración Estimada:</strong> <?php echo htmlspecialchars($service_details['duracion_estimada']); ?></p>
     </div>
 
-    <form action="backend/business/process_appointment.php" method="POST">
-        <input type="hidden" name="service_id" value="<?php echo htmlspecialchars($service_details['id']); ?>">
-        <input type="hidden" name="business_id" value="<?php echo htmlspecialchars($business_details['id']); ?>">
-        <input type="hidden" name="duracion_estimada_text" value="<?php echo htmlspecialchars($service_details['duracion_estimada']); ?>">
+  <form action="backend/business/process_appointment.php" method="post" id="formReserva">
 
-        <div class="form-group">
-            <label for="fecha_turno">Fecha del Turno *</label>
-            <input type="date" name="fecha_turno" id="fecha_turno" required min="<?php echo $today; ?>">
-        </div>
+  <!-- Campos ocultos obligatorios -->
+  <input type="hidden" name="service_id" value="<?php echo htmlspecialchars($service_id); ?>">
+  <input type="hidden" name="business_id" value="<?php echo htmlspecialchars($business_id); ?>">
 
-        <div class="form-group">
-            <label for="hora_turno">Hora *</label>
-            <input type="time" name="hora_turno" id="hora_turno" required>
-        </div>
+  <div class="mb-3">
+    <label for="fecha_turno" class="form-label">Fecha del Turno *</label>
+    <input type="date" id="fecha_turno" name="fecha_turno" class="form-control" required>
+  </div>
 
-        <div class="form-group">
-            <label for="id_profesional">Profesional (opcional)</label>
-            <select name="id_profesional" id="id_profesional">
-                <option value="">Cualquiera</option>
-                <?php foreach ($professional_options as $id => $name): ?>
-                    <option value="<?php echo htmlspecialchars($id); ?>"><?php echo htmlspecialchars($name); ?></option>
-                <?php endforeach; ?>
-            </select>
-        </div>
+  <div class="mb-3">
+    <label for="hora_turno" class="form-label">Hora *</label>
+    <select id="hora_turno" name="hora_turno" class="form-control" required disabled>
+      <option value="">-- Selecciona una hora --</option>
+      <option value="10:00">10:00</option>
+      <option value="14:00">14:00</option>
+      <option value="18:00">18:00</option>
+    </select>
+  </div>
 
-        <div class="form-group">
-            <label for="comentarios">Comentarios</label>
-            <textarea name="comentarios" id="comentarios" rows="3" placeholder="Ej: preferencias, alergias..."></textarea>
-        </div>
+  <div class="mb-3">
+    <label for="id_profesional" class="form-label">Profesional (opcional)</label>
+    <select name="id_profesional" class="form-control">
+      <option value="">Cualquiera</option>
+      <?php foreach ($professional_options as $id => $nombre): ?>
+        <option value="<?= htmlspecialchars($id) ?>"><?= htmlspecialchars($nombre) ?></option>
+      <?php endforeach; ?>
+    </select>
+  </div>
 
-        <button type="submit" class="btn btn-success">Confirmar Reserva</button>
-        <a href="index.php?page=book_a_service" class="btn btn-secondary">Cancelar</a>
-    </form>
-</div>
+  <div class="mb-3">
+    <label for="comentarios" class="form-label">Comentarios</label>
+    <textarea name="comentarios" class="form-control" placeholder="Ej: preferencias, alergias..."></textarea>
+  </div>
+
+  <div class="text-center mt-4">
+    <button type="submit" class="btn btn-success" id="btnConfirmar" disabled>Confirmar Reserva</button>
+    <a href="index.php?page=book_a_service" class="btn btn-secondary ms-2">Cancelar</a>
+  </div>
+</form>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const fechaInput = document.getElementById("fecha_turno");
+  const horaSelect = document.getElementById("hora_turno");
+  const btnConfirmar = document.getElementById("btnConfirmar");
+
+  // Setear fecha mínima a hoy
+  const hoy = new Date().toISOString().split("T")[0];
+  fechaInput.setAttribute("min", hoy);
+
+  fechaInput.addEventListener("change", () => {
+    const fecha = new Date(fechaInput.value);
+    const esDomingo = fecha.getDay() === 0;
+
+    if (esDomingo) {
+      alert("No se pueden reservar turnos los domingos.");
+      fechaInput.value = "";
+      horaSelect.disabled = true;
+      btnConfirmar.disabled = true;
+    } else {
+      horaSelect.disabled = false;
+    }
+  });
+
+  horaSelect.addEventListener("change", () => {
+    btnConfirmar.disabled = !(fechaInput.value && horaSelect.value);
+  });
+});
+</script>

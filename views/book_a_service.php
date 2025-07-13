@@ -2,13 +2,9 @@
 session_start();
 require_once 'includes/db.php';
 
-// Asegurarse de que el usuario esté logueado como cliente
-if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || $_SESSION['user_role'] !== 'cliente') {
-    $_SESSION['status_message'] = "Debes iniciar sesión como cliente para reservar un servicio.";
-    $_SESSION['status_type'] = "warning";
-    header("location: index.php?page=login");
-    exit;
-}
+// Si el usuario no es cliente, solo deshabilitamos la reserva
+$puede_reservar = isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true && $_SESSION['user_role'] === 'cliente';
+
 
 $page_title = 'Explorar Servicios Disponibles';
 $status_message = $_SESSION['status_message'] ?? '';
@@ -23,7 +19,6 @@ $sql = "SELECT s.id, s.nombre_servicio, s.descripcion, s.precio, s.duracion_esti
         ORDER BY n.nombre_negocio, s.nombre_servicio";
 
 $result = $conn->query($sql);
-include 'includes/header.php';
 ?>
 
 <div class="container py-4">
@@ -48,7 +43,11 @@ include 'includes/header.php';
                             <p><strong>Precio:</strong> $<?php echo number_format($row['precio'], 2, ',', '.'); ?></p>
                         </div>
                         <div class="card-footer text-center">
-                            <a href="index.php?page=book_appointment&service_id=<?php echo $row['id']; ?>&business_id=<?php echo $row['negocio_id']; ?>" class="btn btn-primary">Reservar Ahora</a>
+                            <?php if ($puede_reservar): ?>
+                                <a href="index.php?page=book_appointment&service_id=<?php echo $row['id']; ?>&business_id=<?php echo $row['negocio_id']; ?>" class="btn btn-primary">Reservar Ahora</a>
+                            <?php else: ?>
+                                <a href="index.php?page=login" class="btn btn-outline-secondary">Reservar</a>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>

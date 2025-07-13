@@ -1,77 +1,48 @@
 <?php
+session_start();
 require_once '../../includes/db.php';
 
-// Verificar login
+// Verificar que esté logueado como cliente
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || $_SESSION['user_role'] !== 'cliente') {
-    $_SESSION['status_message'] = "Debes iniciar sesión como cliente para reservar.";
+    $_SESSION['status_message'] = "Debes iniciar sesión como cliente para reservar un turno.";
     $_SESSION['status_type'] = "error";
     header("Location: ../../index.php?page=login");
     exit;
 }
 
-$id_cliente = $_SESSION['user_id'] ?? null;
+$usuario_id = $_SESSION['user_id'] ?? null;
+
+// Validar datos del formulario
 $service_id = $_POST['service_id'] ?? null;
+$business_id = $_POST['business_id'] ?? null; // este campo no se usa en la tabla, pero lo dejamos para validación
 $fecha_turno = $_POST['fecha_turno'] ?? null;
 $hora_turno = $_POST['hora_turno'] ?? null;
 $id_profesional = !empty($_POST['id_profesional']) ? $_POST['id_profesional'] : null;
+$comentarios = $_POST['comentarios'] ?? null;
 
-if (!$id_cliente || !$service_id || !$fecha_turno || !$hora_turno) {
-    $_SESSION['status_message'] = "Faltan datos obligatorios para completar la reserva.";
+// Validación básica
+if (!$usuario_id || !$service_id || !$fecha_turno || !$hora_turno) {
+    $_SESSION['status_message'] = "Faltan datos obligatorios para reservar.";
     $_SESSION['status_type'] = "error";
-    header("Location: ../../index.php?page=book_a_service");
+    header("Location: ../../index.php?page=book_appointment&service_id=$service_id&business_id=$business_id");
     exit;
 }
 
-// Validar domingo
-$dia_semana = date('w', strtotime($fecha_turno));
-if ($dia_semana == 0) {
-    $_SESSION['status_message'] = "No se pueden realizar reservas los domingos.";
-    $_SESSION['status_type'] = "error";
-    header("Location: ../../index.php?page=book_a_service");
-    exit;
-}
+// Insertar turno
+$sql = "INSERT INTO turno (usuario_id, servicio_id, profesional_id, fecha_turno, hora_turno, estado)
+        VALUES (?, ?, ?, ?, ?, 'pendiente')";
 
-// Validar horario permitido
-$hora_entera = intval(substr($hora_turno, 0, 2));
-if ($hora_entera < 9 || $hora_entera > 18) {
-    $_SESSION['status_message'] = "El horario seleccionado no es válido. Debe ser entre las 09:00 y 18:00.";
-    $_SESSION['status_type'] = "error";
-    header("Location: ../../index.php?page=book_a_service");
-    exit;
-}
-
-// 🚫 Validar que no exista un turno duplicado para este cliente en el mismo día y hora
-$check_sql = "SELECT id FROM turno 
-              WHERE usuario_id = ? AND fecha_turno = ? AND hora_turno = ?";
-$check_stmt = $conn->prepare($check_sql);
-$check_stmt->bind_param("iss", $id_cliente, $fecha_turno, $hora_turno);
-$check_stmt->execute();
-$check_stmt->store_result();
-
-if ($check_stmt->num_rows > 0) {
-    $_SESSION['status_message'] = "Ya tienes un turno reservado en ese horario.";
-    $_SESSION['status_type'] = "warning";
-    header("Location: ../../index.php?page=book_a_service");
-    $check_stmt->close();
-    $conn->close();
-    exit;
-}
-$check_stmt->close();
-
-// ✔ Insertar el turno
-$sql = "INSERT INTO turno (usuario_id, servicio_id, profesional_id, fecha_turno, hora_turno, estado, fecha_creacion)
-        VALUES (?, ?, ?, ?, ?, 'pendiente', NOW())";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("iiiss", $id_cliente, $service_id, $id_profesional, $fecha_turno, $hora_turno);
+$stmt->bind_param("iiiss", $usuario_id, $service_id, $id_profesional, $fecha_turno, $hora_turno);
 
 if ($stmt->execute()) {
-    $_SESSION['status_message'] = "¡Tu reserva se realizó con éxito!";
+    $_SESSION['status_message'] = "¡Turno reservado exitosamente!";
     $_SESSION['status_type'] = "success";
     header("Location: ../../index.php?page=appointments");
 } else {
-    $_SESSION['status_message'] = "Error al guardar el turno: " . $conn->error;
+    $_SESSION['status_message'] = "Error al reservar el turno.";
     $_SESSION['status_type'] = "error";
-    header("Location: ../../index.php?page=book_a_service");
+    header("Location: ../../index.php?page=book_appointment&service_id=$service_id&business_id=$business_id");
 }
 
 $stmt->close();
