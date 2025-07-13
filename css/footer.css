@@ -1,31 +1,31 @@
 footer {
-    background-color: var(--primary-blue); /* Fondo azul oscuro de tu marca */
-    color: #ffffff; /* Texto blanco para contraste */
-    padding: 40px 20px 20px; /* Espacio arriba, lados, abajo */
-    font-size: 0.9em; /* Tamaño de fuente ligeramente más pequeño */
+    background-color: var(--primary-blue); 
+    color: #ffffff; 
+    padding: 40px 20px 20px; 
+    font-size: 0.9em;
     line-height: 1.8;
 }
 
 .footer-content {
     display: flex;
-    justify-content: space-around; /* Distribuye las secciones uniformemente */
-    flex-wrap: wrap; /* Permite que las secciones se envuelvan en pantallas pequeñas */
-    max-width: 1200px; /* Mismo ancho máximo que tu header */
-    margin: 0 auto; /* Centra el contenido del footer */
-    padding-bottom: 30px; /* Espacio entre el contenido principal y el copyright */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Separador sutil */
-    gap: 30px; /* Espacio entre las columnas del footer */
+    justify-content: space-around;
+    flex-wrap: wrap; 
+    max-width: 1200px; 
+    margin: 0 auto; 
+    padding-bottom: 30px; 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); 
+    gap: 30px; 
 }
 
 .footer-section {
-    flex: 1; /* Permite que las secciones crezcan y se encojan */
-    min-width: 180px; /* Ancho mínimo para cada columna */
+    flex: 1; 
+    min-width: 180px; 
     padding: 10px;
     text-align: left;
 }
 
 .footer-section h4 {
-    color: var(--secondary-pink); /* Títulos en rosa de tu marca */
+    color: var(--secondary-pink); 
     font-size: 1.2em;
     margin-bottom: 15px;
     font-weight: bold;
@@ -43,29 +43,29 @@ footer {
 }
 
 .footer-section ul li a {
-    color: #f0f0f0; /* Color de texto ligeramente más claro que blanco puro */
+    color: #f0f0f0;
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 .footer-section ul li a:hover {
-    color: var(--secondary-pink); /* Cambia a rosa al pasar el ratón */
+    color: var(--secondary-pink); 
 }
 
 /* Estilos para iconos de redes sociales */
 .footer-section.social-media {
-    text-align: center; /* Centra los iconos de redes sociales */
+    text-align: center; 
 }
 
 .footer-section.social-media img {
-    width: 30px; /* Tamaño de los iconos */
+    width: 30px;
     height: 30px;
-    margin: 0 8px; /* Espacio entre iconos */
+    margin: 0 8px; 
     transition: transform 0.3s ease;
 }
 
 .footer-section.social-media img:hover {
-    transform: scale(1.1); /* Efecto de escala al pasar el ratón */
+    transform: scale(1.1); 
 }
 
 /* Estilos para la sección de Copyright */
@@ -73,7 +73,7 @@ footer {
     text-align: center;
     padding-top: 20px;
     font-size: 0.85em;
-    color: rgba(255, 255, 255, 0.7); /* Texto de copyright más suave */
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .copyright p {
@@ -83,19 +83,19 @@ footer {
 /* Media Queries para Responsive Design del Footer */
 @media (max-width: 768px) {
     .footer-content {
-        flex-direction: column; /* Apila las secciones verticalmente */
-        align-items: center; /* Centra las secciones apiladas */
-        gap: 20px; /* Reduce el espacio entre secciones */
+        flex-direction: column; 
+        align-items: center; 
+        gap: 20px; 
     }
 
     .footer-section {
-        min-width: unset; /* Quita el mínimo de ancho */
-        width: 100%; /* Ocupa todo el ancho */
-        text-align: center; /* Centra el texto en móviles */
+        min-width: unset; 
+        width: 100%; 
+        text-align: center; 
     }
 
     .footer-section.social-media {
-        padding-top: 10px; /* Más espacio arriba de los iconos */
+        padding-top: 10px; 
     }
 }
 

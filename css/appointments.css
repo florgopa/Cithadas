@@ -1,0 +1,42 @@
+.appointments-container {
+    padding: 40px 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    background-color: var(--light-gray);
+    border-radius: 15px;
+    box-shadow: 0 5px 20px var(--shadow-medium);
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.no-appointments-message {
+    font-size: 1.2em;
+    color: var(--text-color-light);
+    margin-top: 30px;
+}
+
+.appointments-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.appointment-card {
+    background-color: var(--white);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px var(--shadow-light);
+    text-align: left;
+}
+
+.appointment-card h4 {
+    color: var(--primary-blue);
+    margin-bottom: 10px;
+}
+
+.appointment-card p {
+    margin: 5px 0;
+}

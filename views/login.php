@@ -1,9 +1,4 @@
 <?php
-// views/login.php
-
-// Es CRUCIAL que session_start() se llame una única vez al principio de index.php
-// (o en un archivo de configuración que index.php incluya muy al principio).
-// Si ya lo tienes globalmente, NO lo añadas aquí para evitar el "Ignoring session_start()" notice.
 
 $page_title = "Iniciar Sesión - Cithadas"; // Título de la página
 
@@ -11,10 +6,6 @@ $page_title = "Iniciar Sesión - Cithadas"; // Título de la página
 $status_message = '';
 $status_type = '';
 
-// --- DEBUG: Imprime el contenido de $_SESSION al llegar a login.php ---
-echo "<!-- DEBUG (views/login.php): Contenido de SESSION al cargar: -->";
-echo "<!-- " . print_r($_SESSION, true) . " -->";
-echo "<!-- FIN DEBUG -->";
 
 if (isset($_SESSION['status_message'])) {
     $status_message = $_SESSION['status_message'];
@@ -63,6 +54,5 @@ if (isset($_SESSION['status_message'])) {
 </div>
 
 <?php
-// Asegúrate de que los estilos CSS para .alert, .success-message, .error-message, .info-message estén definidos.
-// Si no los tienes, puedes usar el ejemplo de CSS que te dejé comentado en la inmersiva anterior.
+
 ?>
