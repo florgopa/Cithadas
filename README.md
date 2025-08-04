@@ -49,7 +49,7 @@ Incluye:
 - **Email**: `gladysrussell@gmail.com`
 - **Contraseña**: `cliente456`
 
-### 🏪 Negocios
+### Negocios
 - **Dueño**: Salon Glamour  
   - **Email**: `salonglamour@gmail.com`  
   - **Contraseña**: `negocio456`
