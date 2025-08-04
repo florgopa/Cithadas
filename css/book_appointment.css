@@ -12,7 +12,7 @@
         color: #333;
     }
     .booking-summary {
-        background-color: #e9f5ff; /* Light blue background */
+        background-color: #e9f5ff; 
         border: 1px solid #cce5ff;
         color: #004085;
     }
@@ -30,14 +30,14 @@
         color: #555;
     }
     .booking-form input[type="date"],
-    .booking_form input[type="time"], /* Corrección aquí, era booking-form input[type="time"] */
+    .booking_form input[type="time"], 
     .booking-form select,
     .booking-form textarea {
         width: 100%;
         padding: 10px;
         border: 1px solid #ccc;
         border-radius: 5px;
-        box-sizing: border-box; /* Ensures padding doesn't add to total width */
+        box-sizing: border-box; 
     }
     .booking-form textarea {
         resize: vertical;
@@ -49,7 +49,7 @@
         display: block;
     }
     .required-field {
-        color: #dc3545; /* Bootstrap danger red */
+        color: #dc3545; 
     }
     .btn-success {
         background-color: #28a745;
@@ -84,7 +84,7 @@
         width: 100%;
         display: block;
     }
-    /* Estilos de alerta - los mismos que en otras vistas */
+    /* Estilos de alerta */
     .alert {
         padding: 15px;
         margin-bottom: 20px;

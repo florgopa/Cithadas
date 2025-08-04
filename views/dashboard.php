@@ -40,12 +40,15 @@ $friendly_role = [
                 <li><a href="#" class="dashboard-option-link disabled-link">Mi Negocio (Próximamente)</a></li>
                 <li><a href="#" class="dashboard-option-link disabled-link">Mis Citas (Próximamente)</a></li>
             </ul>
-       <?php else: // Rol cliente o desconocido ?>
+        <?php else: // Rol cliente ?>
             <h3 class="section-title">Opciones de Cliente</h3>
             <ul class="dashboard-options-list">
                 <li><a href="index.php?page=home" class="dashboard-option-link">Volver al Inicio</a></li>
                 <li><a href="index.php?page=appointments" class="dashboard-option-link">Mis Turnos</a></li>
+                <li><a href="index.php?page=client_profile" class="dashboard-option-link">Mi Perfil</a></li>
             </ul>
+
+
 <?php endif; ?>
     </div>
 

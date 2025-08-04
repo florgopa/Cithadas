@@ -33,7 +33,7 @@
     }
     .form-group input:focus,
     .form-group select:focus {
-        border-color: #007bff;
+        border-color: var(--primary-blue);
         outline: none;
         box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
     }
@@ -54,8 +54,9 @@
         border: 1px solid #c3e6cb;
     }
     button[type="submit"] {
-        background-color: #007bff; /* Azul para el botón */
-        color: white;
+        background-color: var(--secondary-pink);
+        color: var(--primary-blue);
+        
         padding: 12px 20px;
         border: none;
         border-radius: 5px;
@@ -65,5 +66,6 @@
         transition: background-color 0.3s ease;
     }
     button[type="submit"]:hover {
-        background-color: #0056b3;
+        background-color: var(--primary-blue);
+        color: #F6F6F6;
     }

@@ -30,6 +30,10 @@
     border-radius: 12px;
     box-shadow: 0 4px 15px var(--shadow-light);
     text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 12px;
 }
 
 .appointment-card h4 {
@@ -39,4 +43,22 @@
 
 .appointment-card p {
     margin: 5px 0;
+    color: var(--text-color);
+}
+
+input.btn-danger,
+button.btn-danger {
+    background-color: #dc3545 !important;
+    color: white !important;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input.btn-danger:hover,
+button.btn-danger:hover {
+    background-color: #c82333 !important;
 }

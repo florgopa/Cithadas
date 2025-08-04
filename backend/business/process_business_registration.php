@@ -1,6 +1,4 @@
 <?php
-// backend/business/process_business_registration.php
-
 session_start();
 
 // Asegurarse de que solo usuarios logueados con rol 'negocio' puedan procesar esto

@@ -1,15 +1,14 @@
 <?php
-// backend/process_contact.php
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // 1. Recibir y sanitizar los datos
+    // Recibir y sanitizar los datos
     $name = trim($_POST['name'] ?? '');
     $email = filter_var(trim($_POST['email'] ?? ''), FILTER_SANITIZE_EMAIL);
     $subject = trim($_POST['subject'] ?? '');
     $message = trim($_POST['message'] ?? '');
 
-    // 2. Validaciones básicas
+    // Validaciones
     if (empty($name) || empty($email) || empty($subject) || empty($message)) {
         $_SESSION['status_message'] = "Por favor, completa todos los campos del formulario de contacto.";
         $_SESSION['status_type'] = "error";
@@ -23,10 +22,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: ../index.php?page=home#contact-section");
         exit();
     }
-
-    // 3. Simular el procesamiento (no se envía email real)
-    // En un entorno real, aquí usarías mail() o una librería como PHPMailer
-    // para enviar el correo a tu dirección de soporte.
 
     // Guardar los datos simulados en la sesión para mostrarlos
     $_SESSION['contact_data'] = [

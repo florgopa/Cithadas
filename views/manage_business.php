@@ -103,7 +103,7 @@ $conn->close(); // Cerrar la conexión a la base de datos
                                         <button type="submit" name="action_btn" value="aprobar" class="btn-approve">Aprobar</button>
                                         <button type="submit" name="action_btn" value="rechazar" class="btn-reject">Rechazar</button>
                                     <?php elseif ($business['estado'] === 'activo'): ?>
-                                        <button type="submit" name="action_btn" value="inactivar" class="btn-inactivate">Inactivar</button>
+                                        <button type="submit" name="action_btn" value="inactivar" class="btn-inactivate">Desactivar</button>
                                     <?php elseif ($business['estado'] === 'inactivo' || $business['estado'] === 'rechazado'): ?>
                                         <button type="submit" name="action_btn" value="activar" class="btn-activate">Activar</button>
                                     <?php endif; ?>

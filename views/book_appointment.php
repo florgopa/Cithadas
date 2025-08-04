@@ -156,4 +156,5 @@ document.addEventListener("DOMContentLoaded", () => {
     btnConfirmar.disabled = !(fechaInput.value && horaSelect.value);
   });
 });
+
 </script>

@@ -1,16 +1,16 @@
 <?php
 session_start();
 
-// Asegurarse de que solo usuarios logueados y con rol 'admin' puedan acceder
+// solo usuarios logueados y rol 'admin' pueden acceder
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || $_SESSION['user_role'] !== 'admin') {
     header("location: ../../index.php?page=home"); // Redirigir a home o a una página de acceso denegado
     exit;
 }
 
-// Incluir la conexión a la base de datos
-require_once '../../includes/db.php'; // La ruta es correcta (dos niveles arriba desde backend/admin)
+// conexión base de datos
+require_once '../../includes/db.php'; 
 
-// Verificar si la solicitud es POST y si se ha enviado una acción de botón
+// Verificar solicitud POST 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action_btn'])) {
 
     $business_id = $_POST['business_id'] ?? null;
@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action_btn'])) {
     if ($business_id && $current_status && $action) {
         $new_status = '';
 
-        // Determinar el nuevo estado basado en la acción y el estado actual
+        // Determinar el nuevo estado 
         switch ($action) {
             case 'aprobar':
                 if ($current_status === 'pendiente') {
@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action_btn'])) {
                 break;
             case 'rechazar':
                 if ($current_status === 'pendiente') {
-                    $new_status = 'inactivo'; // O 'rechazado' si quieres un estado específico
+                    $new_status = 'inactivo'; 
                 }
                 break;
             case 'activar':
@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action_btn'])) {
             $sql = "UPDATE negocio SET estado = ? WHERE id = ?";
 
             if ($stmt = $conn->prepare($sql)) {
-                $stmt->bind_param("si", $new_status, $business_id); // "s" para string (estado), "i" para integer (id)
+                $stmt->bind_param("si", $new_status, $business_id);
 
                 if ($stmt->execute()) {
                     // Éxito al actualizar
@@ -77,15 +77,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action_btn'])) {
         $_SESSION['status_type'] = 'error';
     }
 
-    $conn->close(); // Cerrar la conexión a la base de datos
+    $conn->close(); // Cerrar conexión base de datos
 
-    // Redirigir de vuelta a la página de gestión de negocios
+    // Redirigir a la página de gestión de negocios
     header("location: ../../index.php?page=manage_business");
     exit();
 
 } else {
-    // Si se accede directamente sin POST o sin la acción del botón
-    header("location: ../../index.php?page=manage_business"); // Redirigir de vuelta a la página de gestión
+    // Si se accede directamente sin POST 
+    header("location: ../../index.php?page=manage_business"); 
     exit();
 }
 ?>

@@ -233,4 +233,3 @@ $categoria_options = [
         </div>
     <?php endif; ?>
 </div>
-

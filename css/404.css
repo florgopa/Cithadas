@@ -39,13 +39,3 @@
         background-color: var(--primary-blue);
         color: var(--secondary-pink);
     }
-
-    /* Asume que tienes variables CSS definidas en otro lugar, por ejemplo en style.css */
-    /* :root {
-        --primary-blue: #3c406b;
-        --secondary-pink: #f799b6;
-        --dark-gray: #333;
-        --text-color-light: #666;
-        --header-height: 80px; // Ejemplo, ajusta a tu header real
-        --footer-height: 100px; // Ejemplo, ajusta a tu footer real
-    } */

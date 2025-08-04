@@ -13,7 +13,19 @@ require_once 'includes/db.php'; // La ruta es correcta porque index.php lo inclu
 $users = [];
 $error_message = '';
 
+// --- Manejo de mensajes de estado de la sesión (ej. después de activar/desactivar) ---
+$status_message = '';
+$status_type = '';
+if (isset($_SESSION['status_message'])) {
+    $status_message = $_SESSION['status_message'];
+    $status_type = $_SESSION['status_type'];
+    unset($_SESSION['status_message']);
+    unset($_SESSION['status_type']);
+}
+// --- Fin manejo de mensajes ---
+
 // Obtener todos los usuarios de la base de datos
+// Ahora la columna 'estado' existe en la tabla 'usuario'
 $sql = "SELECT id, nombre, email, rol, estado FROM usuario ORDER BY id ASC";
 if ($stmt = $conn->prepare($sql)) {
     $stmt->execute();
@@ -34,9 +46,17 @@ if ($stmt = $conn->prepare($sql)) {
 $conn->close(); // Cerrar la conexión a la base de datos
 ?>
 
-<div class="manage-users-container">
-    <h2>Gestionar Usuarios</h2>
-    <p>Desde aquí podrás ver, buscar, y gestionar el estado (activar/inactivar) de los usuarios.</p>
+<div class="manage-users-container container">
+    <h2 class="text-center-heading">Gestionar Usuarios</h2>
+    <p class="text-center">Desde aquí podrás ver, buscar, y gestionar el estado (activar/inactivar) de los usuarios.</p>
+
+    <?php if ($status_message):
+        $alert_class = ($status_type === 'success') ? 'success-message' : (($status_type === 'error') ? 'error-message' : 'info-message');
+    ?>
+        <div class="alert <?php echo $alert_class; ?>">
+            <?php echo htmlspecialchars($status_message); ?>
+        </div>
+    <?php endif; ?>
 
     <?php if (!empty($error_message)): ?>
         <div class="alert error-message"><?php echo htmlspecialchars($error_message); ?></div>
@@ -62,15 +82,20 @@ $conn->close(); // Cerrar la conexión a la base de datos
                             <td><?php echo htmlspecialchars($user['nombre']); ?></td>
                             <td><?php echo htmlspecialchars($user['email']); ?></td>
                             <td><?php echo htmlspecialchars($user['rol']); ?></td>
-                            <td><?php echo htmlspecialchars($user['estado']); ?></td>
                             <td>
+                                <span class="status-badge status-<?php echo htmlspecialchars($user['estado']); ?>">
+                                    <?php echo htmlspecialchars(ucfirst($user['estado'])); ?>
+                                </span>
+                            </td>
+                            <td>
+                                <!-- Importante: La acción del formulario debe ir a un script de backend -->
                                 <form action="backend/admin/toggle_user_status.php" method="POST" style="display:inline;">
                                     <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user['id']); ?>">
                                     <input type="hidden" name="current_status" value="<?php echo htmlspecialchars($user['estado']); ?>">
                                     <?php if ($user['estado'] === 'activo'): ?>
-                                        <button type="submit" name="toggle_status_btn" class="btn-inactivate">Desactivar</button>
+                                        <button type="submit" name="toggle_status_btn" class="btn btn-inactivate">Desactivar</button>
                                     <?php else: ?>
-                                        <button type="submit" name="toggle_status_btn" class="btn-activate">Activar</button>
+                                        <button type="submit" name="toggle_status_btn" class="btn btn-activate">Activar</button>
                                     <?php endif; ?>
                                 </form>
                             </td>
@@ -85,3 +110,5 @@ $conn->close(); // Cerrar la conexión a la base de datos
         </table>
     </div>
 </div>
+
+

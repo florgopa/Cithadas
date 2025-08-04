@@ -1,6 +1,11 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
 
+// Página solicitada por parámetro
 $page = $_GET['page'] ?? 'home';
 
 $page_title = 'Cithadas';
@@ -29,23 +34,31 @@ switch ($page) {
     case 'book_a_service':
         $page_title .= ' - Reservar Servicio';
         break;
+    case 'book_appointment':
+        $page_title .= ' - Confirmar Reserva';
+        break;
     case 'search_results':
         $page_title .= ' - Resultados de Búsqueda';
         break;
     default:
+    case 'client_profile':
+    $page_title .= ' - Mi Perfil';
+    break;
+        $page = '404'; // 
         $page_title .= ' - Página no encontrada';
         break;
 }
 
 include 'includes/header.php';
 
+
 $view_file = 'views/' . $page . '.php';
 
 if (file_exists($view_file)) {
+    echo "<!-- DEBUG: Incluyendo vista $view_file -->";
     include $view_file;
 } else {
-    include 'views/404.php';
+    include 'views/404.php'; 
 }
 
 include 'includes/footer.php';
-?>

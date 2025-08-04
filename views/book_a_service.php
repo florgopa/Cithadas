@@ -1,28 +1,39 @@
 <?php
-session_start();
 require_once 'includes/db.php';
 
-// Si el usuario no es cliente, solo deshabilitamos la reserva
 $puede_reservar = isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true && $_SESSION['user_role'] === 'cliente';
-
 
 $page_title = 'Explorar Servicios Disponibles';
 $status_message = $_SESSION['status_message'] ?? '';
 $status_type = $_SESSION['status_type'] ?? '';
 unset($_SESSION['status_message'], $_SESSION['status_type']);
 
+// Obtener la categoría desde GET si está presente
+$categoria = $_GET['category'] ?? null;
+
+// Preparar SQL con filtro opcional
 $sql = "SELECT s.id, s.nombre_servicio, s.descripcion, s.precio, s.duracion_estimada,
-               n.id AS negocio_id, n.nombre_negocio
+               s.categoria, n.id AS negocio_id, n.nombre_negocio
         FROM servicio s
         JOIN negocio n ON s.negocio_id = n.id
-        WHERE s.estado = 'activo' AND n.estado = 'activo'
-        ORDER BY n.nombre_negocio, s.nombre_servicio";
+        WHERE s.estado = 'activo' AND n.estado = 'activo'";
 
-$result = $conn->query($sql);
+if ($categoria) {
+    $sql .= " AND s.categoria = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $categoria);
+    $stmt->execute();
+    $result = $stmt->get_result();
+} else {
+    $sql .= " ORDER BY n.nombre_negocio, s.nombre_servicio";
+    $result = $conn->query($sql);
+}
 ?>
 
 <div class="container py-4">
-    <h2 class="text-center-heading">Explorar Servicios Disponibles</h2>
+    <h2 class="text-center-heading">
+        <?php echo $categoria ? 'Servicios de ' . htmlspecialchars($categoria) : 'Explorar Servicios Disponibles'; ?>
+    </h2>
 
     <?php if ($status_message): ?>
         <div class="alert <?php echo $status_type; ?>">
@@ -54,11 +65,11 @@ $result = $conn->query($sql);
             <?php endwhile; ?>
         </div>
     <?php else: ?>
-        <p>No hay servicios disponibles por el momento.</p>
+        <p>No hay servicios disponibles para esta categoría.</p>
+        <a href="index.php?page=book_a_service" class="btn btn-outline-secondary">Ver todos los servicios</a>
     <?php endif; ?>
 </div>
 
 <?php
 $conn->close();
-include 'includes/footer.php';
 ?>

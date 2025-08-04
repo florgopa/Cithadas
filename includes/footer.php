@@ -1,13 +1,12 @@
-<?php
-?>
-    </main> <footer>
+    </main>
+    <footer>
         <div class="footer-content">
             <div class="footer-section company-info">
-                <h4>Cithadas © </h4>
+                <h4>Cithadas ©</h4>
                 <ul>
                     <li><a href="#">Nosotros</a></li>
                     <li><a href="#">Términos & Condiciones</a></li>
-                    <li><a href="#">Politica de Privacidad</a></li>
+                    <li><a href="#">Política de Privacidad</a></li>
                 </ul>
             </div>
             <div class="footer-section salons-info">
@@ -19,15 +18,27 @@
             </div>
             <div class="footer-section social-media">
                 <h4>Seguinos</h4>
-                <a href="#"><img src="img/social/facebook.png" alt="Facebook"></a>
-                <a href="#"><img src="img/social/instagram.png" alt="Instagram"></a>
-                <a href="#"><img src="img/social/linkedin.png" alt="LinkedIn"></a>
+                <a href="#"><img src="img/facebook.png" alt="Facebook"></a>
+                <a href="#"><img src="img/instagram.png" alt="Instagram"></a>
+                <a href="#"><img src="img/linkedin.png" alt="LinkedIn"></a>
             </div>
         </div>
         <div class="copyright">
             <p>&copy; <?php echo date('Y'); ?> Cithadas. All rights reserved.</p>
-            <p><?php ?> Flor Gomez Pacheco | Programación Web II.</p>
+            <p>Flor Gomez Pacheco | Programación Web II</p>
         </div>
     </footer>
-    </body>
+
+    <!-- Script responsive -->
+    <script>
+        const toggle = document.querySelector('.menu-toggle');
+        const navRight = document.querySelector('.nav-right');
+
+        if (toggle && navRight) {
+            toggle.addEventListener('click', () => {
+                navRight.classList.toggle('active');
+            });
+        }
+    </script>
+</body>
 </html>

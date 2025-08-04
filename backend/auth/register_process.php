@@ -1,37 +1,33 @@
 <?php
-// Iniciar la sesión al principio
 session_start();
 
-// Incluir la conexión a la base de datos y funciones generales
-// Asegúrate de que la ruta sea correcta (dos niveles arriba desde backend/auth)
 require_once '../../includes/db.php';
-require_once '../../includes/functions.php'; // Para funciones de validación adicionales si las creamos aquí o en functions.php
+require_once '../../includes/functions.php'; 
 
-// Verificar si el formulario ha sido enviado por método POST y si el botón de registro fue presionado
+// Verificar formulario enviado por POST y el botón de registro
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register_btn'])) {
 
-    // 1. Inicializar variables para errores y datos del formulario
+    // Inicializar variables para errores y datos del formulario
     $errors = [];
     $input = []; // Para almacenar los datos válidos y saneados
 
-    // 2. Obtener y limpiar los datos del formulario
+    // Obtener y limpiar los datos del formulario
     // trim() elimina espacios en blanco al inicio y al final
     $name = trim($_POST['name'] ?? '');
-    $lastname = trim($_POST['lastname'] ?? ''); // NUEVO: Obtener y trimear el apellido
+    $lastname = trim($_POST['lastname'] ?? ''); 
     $email = trim($_POST['email'] ?? '');
-    $password = $_POST['password'] ?? ''; // La contraseña no se trimea para permitir espacios si se desea
+    $password = $_POST['password'] ?? ''; 
     $confirm_password = $_POST['confirm_password'] ?? '';
-    $role = $_POST['role'] ?? 'cliente'; // Por defecto 'cliente'
+    $role = $_POST['role'] ?? 'cliente';
 
     // Almacenar los inputs originales (excepto contraseñas) en la sesión para rellenar el formulario en caso de error
     $_SESSION['old_input'] = [
         'name' => $name,
-        'lastname' => $lastname, // NUEVO: Guardar el apellido en old_input
+        'lastname' => $lastname, // 
         'email' => $email,
         'role' => $role
     ];
 
-    // 3. Validar los datos
 
     // Validar Nombre
     if (empty($name)) {
@@ -42,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register_btn'])) {
         $input['name'] = htmlspecialchars($name); // Sanear para HTML
     }
 
-    // NUEVO: Validar Apellido
+    // Validar Apellido
     if (empty($lastname)) {
         $errors['lastname_err'] = "Por favor, ingresa tu apellido.";
     } elseif (!preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s']+$/u", $lastname)) {
@@ -50,15 +46,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register_btn'])) {
     } else {
         $input['lastname'] = htmlspecialchars($lastname); // Sanear para HTML
     }
-    // FIN NUEVO
-
+  
     // Validar Email
     if (empty($email)) {
         $errors['email_err'] = "Por favor, ingresa tu correo electrónico.";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors['email_err'] = "El formato del correo electrónico no es válido.";
     } else {
-        // Sanear el email antes de la consulta
+     
         $sanitized_email = mysqli_real_escape_string($conn, $email);
         $input['email'] = $sanitized_email;
 
@@ -67,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register_btn'])) {
         if ($stmt = $conn->prepare($sql)) {
             $stmt->bind_param("s", $sanitized_email);
             $stmt->execute();
-            $stmt->store_result(); // Almacena el resultado para poder usar num_rows
+            $stmt->store_result(); 
             if ($stmt->num_rows > 0) {
                 $errors['email_err'] = "Este correo electrónico ya está registrado.";
             }
@@ -91,22 +86,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register_btn'])) {
         $errors['confirm_password_err'] = "Las contraseñas no coinciden.";
     }
 
-    // Validar Rol (asegúrate de que solo se envíen los roles permitidos por el select)
-    $allowed_roles = ['cliente', 'negocio']; // Roles permitidos para el registro público
+    // Validar Rol 
+    $allowed_roles = ['cliente', 'negocio']; // para el registro público
     if (!in_array($role, $allowed_roles)) {
         $errors['role_err'] = "Rol no válido.";
     } else {
-        $input['role'] = htmlspecialchars($role); // Sanear para HTML
+        $input['role'] = htmlspecialchars($role); // 
     }
 
-    // 4. Procesar si no hay errores
+    // Procesar si no hay errores
     if (empty($errors)) {
-        // Hash de la contraseña antes de guardarla en la base de datos
-        // password_hash() es la forma segura y recomendada
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-        // Concatenamos nombre y apellido para guardar en el campo 'nombre' de la tabla 'usuario'
-        // (ya que la tabla 'usuario' actual no tiene un campo 'apellido' separado)
         $full_name_to_db = $input['name'] . ' ' . $input['lastname'];
 
         // Preparar la consulta SQL para insertar el nuevo usuario
@@ -145,6 +136,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register_btn'])) {
 } else {
     // Si se intenta acceder a este script directamente sin enviar el formulario POST
     header("location: ../../index.php?page=register"); // Redirigir de nuevo a la página de registro
-    exit(); // Terminar el script
+    exit(); 
 }
 ?>

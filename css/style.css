@@ -10,16 +10,16 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Arial', sans-serif; /* Puedes ajustar esto a tu fuente principal */
+    font-family: 'Arial', sans-serif;
     line-height: 1.6;
     color: var(--text-color);
 
     /* La imagen de fondo */
-    background-image: url('../img/bg.jpg'); /* ASEGÚRATE QUE LA RUTA ES CORRECTA */
-    background-size: 450px; /* <--- AJUSTA ESTE VALOR: prueba con 100px, 150px, 200px, 300px hasta que te guste */
-    background-position: center center; /* O puedes quitar esto si quieres que empiece desde arriba a la izquierda */
-    background-repeat: repeat; /* <--- ESTO ES CLAVE: hará que la imagen se repita en patrón */
-    background-attachment: fixed; /* Mantiene la imagen fija mientras el contenido se desplaza */
+    background-image: url('../img/bg.jpg'); 
+    background-size: 450px; 
+    background-position: center center; 
+    background-repeat: repeat; 
+    background-attachment: fixed;
     min-height: 100vh;
     display: flex;
     flex-direction: column;

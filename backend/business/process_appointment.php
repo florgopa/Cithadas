@@ -14,7 +14,7 @@ $usuario_id = $_SESSION['user_id'] ?? null;
 
 // Validar datos del formulario
 $service_id = $_POST['service_id'] ?? null;
-$business_id = $_POST['business_id'] ?? null; // este campo no se usa en la tabla, pero lo dejamos para validación
+$business_id = $_POST['business_id'] ?? null;
 $fecha_turno = $_POST['fecha_turno'] ?? null;
 $hora_turno = $_POST['hora_turno'] ?? null;
 $id_profesional = !empty($_POST['id_profesional']) ? $_POST['id_profesional'] : null;

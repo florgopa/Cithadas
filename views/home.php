@@ -33,11 +33,11 @@ if (isset($_SESSION['contact_data'])) {
             <h1>Descubre los mejores salones, spas y profesionales cerca de ti.</h1>
 
             <form action="index.php" method="GET" class="search-bar">
-                <input type="hidden" name="page" value="book_a_service">
-                <input type="text" name="search_query" placeholder="Buscar por servicio, negocio o categoría..." class="search-input">
+                <input type="hidden" name="page" value="search_results" />
+                <input type="text" name="query" placeholder="Buscar servicio, ubicación..." class="search-input" value="<?php echo htmlspecialchars($_GET['query'] ?? ''); ?>" />
                 <button type="submit" class="search-button">Buscar</button>
             </form>
-        </div>
+
     </section>
 
     <section class="mission-section container">

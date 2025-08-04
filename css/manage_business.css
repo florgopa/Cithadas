@@ -18,17 +18,13 @@
     margin-bottom: 30px;
 }
 
-.business-list {
-    overflow-x: auto; 
-}
-
 .business-list table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
     background-color: var(--white);
     border-radius: 10px;
-    overflow: hidden; /* Para que los bordes redondeados se apliquen a la tabla */
+    overflow: hidden; 
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 

@@ -1,16 +1,16 @@
 <?php
 session_start();
 
-// Asegurarse de que solo usuarios logueados y con rol 'admin' puedan acceder
+// solo usuarios logueados y con rol 'admin' pueden acceder
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || $_SESSION['user_role'] !== 'admin') {
     header("location: ../../index.php?page=home"); // Redirigir a home o a una página de acceso denegado
     exit;
 }
 
-// Incluir la conexión a la base de datos
-require_once '../../includes/db.php'; // La ruta es correcta (dos niveles arriba desde backend/admin)
+// conexión bdd
+require_once '../../includes/db.php'; // 
 
-// Verificar si la solicitud es POST y si se ha enviado el botón de toggle
+// Verificar si la solicitud es POST y el botón
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['toggle_status_btn'])) {
 
     $user_id = $_POST['user_id'] ?? null;

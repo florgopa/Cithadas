@@ -1,6 +1,4 @@
 <?php
-// views/search_results.php
-session_start();
 
 $page = 'book_a_service'; // Esto hará que se aplique el CSS de book_a_service.css
 $page_title = 'Resultados de Búsqueda';
