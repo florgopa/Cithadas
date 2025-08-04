@@ -1,19 +1,14 @@
 <?php
-// views/manage_users.php
 
-// Asegurarse de que solo usuarios logueados y con rol 'admin' puedan acceder
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || $_SESSION['user_role'] !== 'admin') {
     header("location: index.php?page=home"); // Redirigir a home o a una página de acceso denegado
     exit;
 }
 
-// Incluir la conexión a la base de datos
-require_once 'includes/db.php'; // La ruta es correcta porque index.php lo incluye desde la raíz
-
+require_once 'includes/db.php'; 
 $users = [];
 $error_message = '';
 
-// --- Manejo de mensajes de estado de la sesión (ej. después de activar/desactivar) ---
 $status_message = '';
 $status_type = '';
 if (isset($_SESSION['status_message'])) {
@@ -22,10 +17,7 @@ if (isset($_SESSION['status_message'])) {
     unset($_SESSION['status_message']);
     unset($_SESSION['status_type']);
 }
-// --- Fin manejo de mensajes ---
 
-// Obtener todos los usuarios de la base de datos
-// Ahora la columna 'estado' existe en la tabla 'usuario'
 $sql = "SELECT id, nombre, email, rol, estado FROM usuario ORDER BY id ASC";
 if ($stmt = $conn->prepare($sql)) {
     $stmt->execute();
@@ -43,7 +35,7 @@ if ($stmt = $conn->prepare($sql)) {
     $error_message = "Error al preparar la consulta para obtener usuarios: " . $conn->error;
 }
 
-$conn->close(); // Cerrar la conexión a la base de datos
+$conn->close(); 
 ?>
 
 <div class="manage-users-container container">

@@ -7,7 +7,6 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || $_SESSION
     exit;
 }
 
-// conexión base de datos
 require_once '../../includes/db.php'; 
 
 // Verificar solicitud POST 
@@ -15,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action_btn'])) {
 
     $business_id = $_POST['business_id'] ?? null;
     $current_status = $_POST['current_status'] ?? null;
-    $action = $_POST['action_btn'] ?? null; // 'aprobar', 'rechazar', 'activar', 'inactivar'
+    $action = $_POST['action_btn'] ?? null; 
 
     if ($business_id && $current_status && $action) {
         $new_status = '';
@@ -52,17 +51,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action_btn'])) {
                 $stmt->bind_param("si", $new_status, $business_id);
 
                 if ($stmt->execute()) {
-                    // Éxito al actualizar
+                   
                     $_SESSION['status_message'] = "El estado del negocio ha sido actualizado a '" . $new_status . "'.";
                     $_SESSION['status_type'] = 'success';
                 } else {
-                    // Error al ejecutar la actualización
+                    
                     $_SESSION['status_message'] = "Error al actualizar el estado del negocio: " . $stmt->error;
                     $_SESSION['status_type'] = 'error';
                 }
                 $stmt->close();
             } else {
-                // Error al preparar la consulta
+                
                 $_SESSION['status_message'] = "Error interno al preparar la actualización: " . $conn->error;
                 $_SESSION['status_type'] = 'error';
             }
@@ -72,19 +71,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action_btn'])) {
         }
 
     } else {
-        // Faltan parámetros
+        
         $_SESSION['status_message'] = "Parámetros insuficientes para actualizar el estado del negocio.";
         $_SESSION['status_type'] = 'error';
     }
 
-    $conn->close(); // Cerrar conexión base de datos
+    $conn->close(); 
 
-    // Redirigir a la página de gestión de negocios
     header("location: ../../index.php?page=manage_business");
     exit();
 
 } else {
-    // Si se accede directamente sin POST 
     header("location: ../../index.php?page=manage_business"); 
     exit();
 }
