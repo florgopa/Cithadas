@@ -19,7 +19,6 @@ Aplicación web desarrollada en PHP y MySQL que permite a distintos negocios (pe
 ### Administrador
 - Acceso a la lista completa de usuarios y negocios registrados
 - Eliminación de usuarios y servicios (moderación)
-- Seguimiento del uso general de la plataforma
 
 ## 🧰 Tecnologías utilizadas
 
@@ -35,26 +34,36 @@ Incluye:
 - relaciones entre tablas: usuario, negocio, servicio, reserva
 
 ## 🔐 Usuarios de prueba
-### Administrador
-- **Usuario**: `cliente1@ejemplo.com`
+
+### 🛠️ Administrador
+- **Email**: `admin@cithadas.com`
+- **Contraseña**: `123`
+
+### 👤 Cliente
+- **Email**: `cliente123@correo.com`
 - **Contraseña**: `cliente123`
-  
-### Cliente
-- **Usuario**: `cliente1@ejemplo.com`
+
+- **Email**: `marianbrook@gmail.com`
 - **Contraseña**: `cliente123`
 
-### Negocio
-- **Usuario**: `negocio1@ejemplo.com`
-- **Contraseña**: `negocio123`
+- **Email**: `gladysrussell@gmail.com`
+- **Contraseña**: `cliente456`
 
+### 🏪 Negocios
+- **Dueño**: Salon Glamour  
+  - **Email**: `salonglamour@gmail.com`  
+  - **Contraseña**: `negocio456`
 
-## 💡 Extras implementados
+- **Dueño**: Spa Brillitos  
+  - **Email**: `spabrillitos@gmail.com`  
+  - **Contraseña**: `negocio789`
 
-- Validación de roles y control de acceso
-- Manejo de sesiones
-- Manejo de errores con mensajes amigables
-- Registro de fecha de creación y edición en los servicios
-- Lógica para evitar que usuarios editen o eliminen servicios que no les pertenecen
+- **Dueño**: Barbería PuraVida  
+  - **Email**: `puravidax@gmail.com`  
+  - **Contraseña**: `negocioABC`
+
+- **Email**: `negocio1@gmail.com`  
+  - **Contraseña**: `negocio123`
 
 ## ✅ Requisitos para correr el proyecto
 
