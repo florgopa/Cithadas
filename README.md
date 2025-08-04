@@ -20,26 +20,26 @@ Aplicación web desarrollada en PHP y MySQL que permite a distintos negocios (pe
 - Acceso a la lista completa de usuarios y negocios registrados
 - Eliminación de usuarios y servicios (moderación)
 
-## 🧰 Tecnologías utilizadas
+## Tecnologías utilizadas
 
 - PHP puro
 - MySQL (phpMyAdmin)
 - HTML + CSS personalizado
 - JavaScript para validaciones básicas y animaciones
 
-## 🗃️ Base de datos
+## 🗃Base de datos
 
 Incluye:
 - archivo `cithadas_db.sql` con la estructura y datos básicos
 - relaciones entre tablas: usuario, negocio, servicio, reserva
 
-## 🔐 Usuarios de prueba
+## Usuarios de prueba
 
-### 🛠️ Administrador
+### 🛠Administrador
 - **Email**: `admin@cithadas.com`
 - **Contraseña**: `123`
 
-### 👤 Cliente
+### Cliente
 - **Email**: `cliente123@correo.com`
 - **Contraseña**: `cliente123`
 
@@ -65,7 +65,7 @@ Incluye:
 - **Email**: `negocio1@gmail.com`  
   - **Contraseña**: `negocio123`
 
-## ✅ Requisitos para correr el proyecto
+## Requisitos para correr el proyecto
 
 - Tener XAMPP o similar
 - Clonar este repo en la carpeta `htdocs`
