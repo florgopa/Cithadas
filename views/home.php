@@ -1,7 +1,6 @@
 <?php
 // views/home.php
-// Aquí iría el header de tu sitio, o cualquier lógica inicial que ya tengas
-// Por ejemplo, si tienes un session_start() o includes de configuración al inicio de index.php
+
 
 $page_title = "Bienvenido a Cithadas"; // Título de la página
 
