@@ -1,24 +1,27 @@
-# Imagen oficial de PHP con Apache
+# PHP + Apache
 FROM php:8.2-apache
 
-# Instalar extensiones necesarias
-RUN docker-php-ext-install mysqli pdo pdo_mysql pdo_sqlite
+# Paquetes base + MariaDB server & client
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    mariadb-server mariadb-client \
+    && rm -rf /var/lib/apt/lists/*
 
-# Copiar archivos del proyecto al directorio raíz de Apache
+# Extensiones PHP
+RUN docker-php-ext-install mysqli pdo pdo_mysql
+
+# Copiar proyecto
 COPY . /var/www/html/
 
-# Dar permisos al directorio de la base de datos (por si usás SQLite)
-RUN chmod -R 777 /var/www/html/cithadas_db || true
+# Permisos
+RUN chown -R www-data:www-data /var/www/html
 
-# Establecer permisos generales para Apache
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html
+# Config MySQL básica (directorio de datos)
+RUN mkdir -p /var/run/mysqld && chown -R mysql:mysql /var/run/mysqld \
+    && chown -R mysql:mysql /var/lib/mysql
 
-# Configurar el DocumentRoot de Apache (opcional, si usás index.php en raíz)
-ENV APACHE_DOCUMENT_ROOT=/var/www/html
+# Script de arranque (MySQL + import + Apache)
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
 
-# Exponer el puerto
 EXPOSE 80
-
-# Iniciar Apache
-CMD ["apache2-foreground"]
+CMD ["/start.sh"]
